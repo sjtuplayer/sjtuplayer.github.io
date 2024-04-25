@@ -64,11 +64,12 @@
               <span class="author-block">
                 <a>Hongrui Huang</a><sup>3</sup>,
               </span>
+              <br />
               <span class="author-block">
                 <a > Jieyu Weng</a><sup>2</sup>,
               </span>
               <span class="author-block">
-                <a>Yabiao Wang</a><sup>2</sup>
+                <a>Yabiao Wang</a><sup>2</sup>,
               </span>
               <span class="author-block">
                 <a >Lizhuang Ma</a><sup>1</sup>
@@ -92,9 +93,9 @@
               <span class="author-block"><sup>2</sup>Google Research</span>
             </div> -->
             <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University, Shanghai, China</span>
-              <span class="author-block"><sup>2</sup>Youtu Lab, Tencent, Shanghai, China </span>
-              <span class="author-block"><sup>3</sup>Harbin Institute of Technology </span>
+              <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University, Shanghai, China</span><br />
+              <span class="author-block"><sup>2</sup>Youtu Lab, Tencent, Shanghai, China </span><br />
+              <span class="author-block"><sup>3</sup>Harbin Institute of Technology, Harbin, China </span>
             </div>
   
             <div class="column has-text-centered">
@@ -166,32 +167,24 @@
             in image and video generation. Recently, some efforts have been
             made in controllable video generation, including text-to-video,
             image-to-video generation, video editing, and video motion control,
-            among which camera motion control is an important topic. How-
-            ever, existing camera motion control methods rely on training a
+            among which camera motion control is an important topic. However, existing camera motion control methods rely on training a
             temporal camera module, and necessitate substantial computation
-            resources due to the large amount of parameters in video genera-
-            tion models. Moreover, existing methods pre-define camera motion
-            types during training, which limits their flexibility in camera con-
-            trol, preventing the realization of some specific camera controls,
+            resources due to the large amount of parameters in video generation models. Moreover, existing methods pre-define camera motion
+            types during training, which limits their flexibility in camera control, preventing the realization of some specific camera controls,
             such as various camera movements in films. Therefore, to reduce
             training costs and achieve flexible camera control, we propose
             MotionMaster, a novel training-free video motion transfer model, which
             disentangles camera motions and object motions in source videos,
             and transfers the extracted camera motions to new videos. We first
-            propose a one-shot camera motion disentanglement method to ex-
-            tract camera motion from a single source video, which separates
+            propose a one-shot camera motion disentanglement method to extract camera motion from a single source video, which separates
             the moving objects from the background and estimates the camera
             motion in the moving objects region based on the motion in the
-            background by solving a Poisson equation. Furthermore, we pro-
-            pose a few-shot camera motion disentanglement method to extract
-            the common camera motion from multiple videos with similar cam-
-            era motions, which employs a window-based clustering technique
-            to extract the common features in temporal attention maps of mul-
-            tiple videos. Finally, we propose a motion combination method to
+            background by solving a Poisson equation. Furthermore, we propose a few-shot camera motion disentanglement method to extract
+            the common camera motion from multiple videos with similar camera motions, which employs a window-based clustering technique
+            to extract the common features in temporal attention maps of multiple videos. Finally, we propose a motion combination method to
             combine different types of camera motions together, enabling our
             model a more controllable and flexible camera control. Extensive
-            experiments demonstrate that our training-free approach can ef-
-            fectively decouple camera-object motion and apply the decoupled
+            experiments demonstrate that our training-free approach can effectively decouple camera-object motion and apply the decoupled
             camera motion to a wide range of controllable video generation
             tasks, achieving flexible and diverse camera motion control.
         </div>
@@ -202,7 +195,7 @@
 
 
 <div class="container has-text-centered">
-  <p><strong>Our demo is divided into two parts: firstly, <a href="#experimental-results" class="highlighted-link">all our experimental results</a>, and secondly, we provide a <a href="#gallery" class="highlighted-link">gallery to showcase various effects</a>.</p>
+  <p><strong>Our demo is divided into two parts: firstly, <a href="#experimental-results" class="highlighted-link">all our experimental results</a>, and secondly, we provide a <a href="#gallery" class="highlighted-link">gallery to showcase various effects</a>.</strong></p>
 </div>
 
 <section class="section" id="experimental-results">
@@ -217,21 +210,31 @@
           <h3 class="title is-4">
             Source Video & Swap Attention Map
           </h3>
+          <p>
+            We find that the temporal attention maps determine the generated video motions. By switching the temporal attention maps between the two videos in the first row, we
+            have the results in the second row, whose videos motions are totally swithed.
+          </p>
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="temporal attention swithing" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/fix_1.mp4"
                       type="video/mp4">
             </video>
           </div>
         </div>
       </div>
+      </div>
       <!--/ Visual Effects. -->
   </div>
 </section>
 
 <section class="section">
-  <div class="columns is-centered">
-    <h2 class="title is-4">One-Shot Camera Motion Transfer</h2>
+  <div class="column has-text-centered">
+    <h3 class="title is-4">
+      One-Shot Camera Motion Transfer
+    </h3>
+    <p>
+      Here are the one-shot camera motion transfer results compared to AnimateDiff+Lora and MotionCtrl.
+    </p>
   </div>
   <div class="container is-max-desktop">
 
@@ -241,13 +244,15 @@
       <div class="column">
         <div class="content">
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="one-shot camera motion transfer" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/demo.mp4"
                       type="video/mp4">
             </video>
           </div>
         </div>
       </div>
+      </div>
+    </div>
       <!--/ Visual Effects. -->
 
       <!-- Matting. -->
@@ -269,8 +274,11 @@
 </section>
 
 <section class="section">
-  <div class="columns is-centered" style="margin-bottom: 50px;">
+  <div class="column has-text-centered" style="margin-bottom: 50px;">
     <h2 class="title is-4">Few-Shot Camera Motion Transfer</h2>
+    <p>
+      Here are the few-shot camera motion transfer results compared to AnimateDiff+Lora and MotionCtrl.
+    </p>
   </div>
   <div class="container is-max-desktop">
 
@@ -280,13 +288,15 @@
       <div class="columns is-centered">
         <div class="content">
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="few-shot camera motion transfer" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/demo2.mp4"
                       type="video/mp4">
             </video>
           </div>
         </div>
       </div>
+      </div>
+    </div>
       <!--/ Visual Effects. -->
 
       <!-- Matting. -->
@@ -318,8 +328,11 @@
           <h3 class="title is-4">
             Camera Motion Combination
           </h3>
+          <p>
+      Here are the results combined with different camera motions.
+    </p>
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="camera motion combination" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/main_fig1.mp4"
                       type="video/mp4">
             </video>
@@ -328,6 +341,7 @@
       </div>
       <!--/ Visual Effects. -->
   </div>
+    </div>
 </section>
 
 
@@ -341,10 +355,13 @@
         <div class="content">
           <!-- <h2 class="title is-3">Fig2</h2> -->
           <h3 class="title is-4">
-            Professional Camera Motions
+            Variable-Speed Zoom
           </h3>
+          <p>
+      Here are the results of variable-speed zoom in real films.
+    </p>
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="variable-speed zoom" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/fix_2.mp4"
                       type="video/mp4">
             </video>
@@ -352,6 +369,7 @@
         </div>
       </div>
       <!--/ Visual Effects. -->
+    </div>
   </div>
 </section>
 
@@ -368,8 +386,11 @@
           <h3 class="title is-4">
             Ablation Study On One-Shot Camera Motion Disentanglement
           </h3>
+          <p>
+      Here are abaltion studies on the one-shot camera motion disentanglement.
+    </p>
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="ablation on one-shot" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/fix_3.mp4"
                       type="video/mp4">
             </video>
@@ -377,6 +398,7 @@
         </div>
       </div>
       <!--/ Visual Effects. -->
+      </div>
   </div>
 </section>
 
@@ -392,8 +414,11 @@
           <h3 class="title is-4">
             Ablation Study On Few-Shot Camera Motion Disentanglement
           </h3>
+          <p>
+      Here are abaltion studies on the few-shot camera motion disentanglement.
+    </p>
           <div class="item">
-            <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <video id="ablation on few-shot" autoplay controls muted loop playsinline height="100%">
               <source src="./static/videos/abla2.mp4"
                       type="video/mp4">
             </video>
@@ -402,6 +427,7 @@
       </div>
       <!--/ Visual Effects. -->
   </div>
+    </div>
 </section>
 
 
@@ -417,7 +443,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4">Zoom In</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery-zoom_in" class="carousel results-carousel">
           <div class="item">
             <img src="./static/my_images/251.gif" alt="GIF 1" autoplay loop playsinline height="100%">
           </div>
@@ -461,7 +487,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4">Zoom Out</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery_zoom out" class="carousel results-carousel">
           <div class="item">
             <img src="./static/my_images/228-A-painter-capturing-the-essence-of-a-sunset-on-canvas..gif" alt="GIF 1" autoplay loop playsinline height="100%">
           </div>
@@ -503,7 +529,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4">Pan Right</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery-pan_right" class="carousel results-carousel">
           <div class="item">
             <img src="./static/my_images/97-A-beekeeper-harvesting-honey-from-a-hive-on-a-sunny.gif" alt="GIF 1" autoplay loop playsinline height="100%">
           </div>
@@ -546,7 +572,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4">Pan Left</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery_pan_left" class="carousel results-carousel">
           <div class="item">
             <img src="./static/my_images/240-A-diver-exploring-a-coral-reef-underwater..gif" alt="GIF 1" autoplay loop playsinline height="100%">
           </div>
@@ -598,7 +624,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4"> Sudden Zoom In</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery-sudden_zoom_in" class="carousel results-carousel">
           <div class="item">
             <img src="./static/SuddenZoomIn/13.gif" alt="GIF 1" autoplay loop playsinline height="100%">
           </div>
@@ -645,7 +671,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4">Dolly Zoom In</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery_on_sudden_zoom_in" class="carousel results-carousel">
           <div class="item">
             <img src="./static/DollyIn2/3_processed/1.gif" alt="GIF 5" autoplay loop playsinline height="100%">
           </div>
@@ -736,7 +762,7 @@
     <div class="container">
       <div class="column has-text-centered">
         <h2 class="title is-4">Dolly Zoom Out</h2>
-        <div id="results-carousel" class="carousel results-carousel">
+        <div id="gallery_on_sudden_zoom_out" class="carousel results-carousel">
           <div class="item">
             <img src="./static/DollyOut2/1_1.gif" alt="GIF 1" autoplay loop playsinline height="100%">
           </div>
