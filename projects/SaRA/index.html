@@ -115,7 +115,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/sjtuplayer/anomalydiffusion"
+                <a href="https://github.com/sjtuplayer/SaRA"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -153,26 +153,20 @@
             In recent years, the development of diffusion models has led to significant progress in image, video, and 3D generation tasks, with pre-trained models like the Stable Diffusion series playing a crucial role. 
             However, a key challenge remains in downstream task applications: how to effectively and efficiently adapt pre-trained diffusion models to new tasks.
             Inspired by model pruning which lightens large pre-trained models by removing unimportant parameters, we propose a novel model fine-tuning method to make full use of these ineffective parameters and enable the pre-trained model with new task-specified capabilities.
-            In this work, we first investigate the importance of parameters in pre-trained diffusion models (Stable Diffusion 1.5, 2.0, and 3.0), and discover that the smallest 10% to 20% of parameters by absolute values do not contribute to the generation process due to training instabilities rather than inherent model properties. 
-            Based on this observation, we propose a fine-tuning method termed SaRA that re-utilizes these temporatily ineffective parameters, equating to optimizing a sparse weight matrix to learn the task-specific knowledge. 
+            In this work, we first investigate the importance of parameters in pre-trained diffusion models, and discover that the smallest 10% to 20% of parameters by absolute values do not contribute to the generation process due to training instabilities rather than inherent model properties.
+            Based on this observation, we propose a fine-tuning method termed SaRA that re-utilizes these temporarily ineffective parameters, equating to optimizing a sparse weight matrix to learn the task-specific knowledge.
             To mitigate potential overfitting, we propose a nuclear-norm-based low-rank sparse training scheme for efficient fine-tuning. 
             Furthermore, we design a new progressive parameter adjustment strategy to make full use of the re-trained / finetuned parameters. 
             Finally, we propose a novel unstructural backpropagation strategy, which significantly reduces memory costs during fine-tuning and further enhances the selective PEFT field.
             Our method enhances the generative capabilities of pre-trained models in downstream applications and outperforms traditional fine-tuning methods like LoRA in maintaining model's generalization ability. We validate our approach through fine-tuning experiments on SD 1.5, SD 2.0, and SD 3.0, demonstrating significant improvements. 
-            Additionally, we compare our method against previous fine-tuning approaches in various downstream tasks, including domain transfer, customization, image editing, and 3D generation, proving its effectiveness and generalization performance. 
+            Additionally, we compare our method against previous fine-tuning approaches in various downstream tasks, including domain transfer, customization, and video generation, proving its effectiveness and generalization performance.
             SaRA also offers a practical advantage that requires only a single line of code modification for efficient implementation and is seamlessly compatible with existing methods.
           </p>
         </div>
       </div>
     </div>
-    <div class="columns is-centered">
-            <img src="./static/images/teaser.png" class="interpolation-image" alt="Interpolate start reference image.">
-      </div>
-    <div class="content has-text-justified">
-      <br/>
-      <p>
-        The comparison between our SaRA (d) and the previous parameter efficient finetuning methods, including (a) addictive fine-tuning, (b) reparameterized fine-tuning and (c) the selective fine-tuning.
-      </p>
+
+
     </div>
     </div>
     <!--/ Abstract. -->
@@ -181,33 +175,63 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-
-
     <!-- Animation. -->
+    <div class="content has-text-centered">
+    <h2 class="title is-4">Method</h2>
+      <p>
+        we propose SaRA, a novel fine-tuning method for pre-trained diffusion models that trains the parameters with relatively small absolute values.
+      </p>
+
+    <div class="columns is-centered">
+            <img src="./static/images/teaser.png" class="interpolation-image" alt="Interpolate start reference image.">
+      </div>
+    <div class="content has-text-centered">
+      <br/>
+      <p>
+        Fig.1 The comparison between our SaRA (d) and the previous parameter efficient finetuning methods, including (a) addictive fine-tuning, (b) reparameterized fine-tuning and (c) the selective fine-tuning.
+      </p>
+    </div>
+
+      <h2 class="title is-4">Implementation</h2>
+      <p>
+        SaRA can be implemented by simply modifying a single line of code, where you can just
+        replace the original optimizer with the corresponding optimizer in SaRA.
+      </p>
+<div class="columns is-centered">
+            <img src="./static/images/implementation.png" class="interpolation-image" alt="Interpolate start reference image." width="50%">
+      </div>
+      <br/>
+    </div>
+
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-4">Comparison on Backbone Fine-tuning</h2>
+        <div class="content has-text-centered">
+        <h2 class="title is-4">Improving the Backbone</h2>
         <!-- Interpolating. -->
         <!-- <h3 class="title is-4">Generation Quality and Diversity</h3> -->
-        <div class="content has-text-justified">
           <p>
-            Quantitative comparisons among different PEFT methods on Backbone Fine-tuning on
-            ImageNet, FFHQ, and CelebA-HQ datasets. Our method achieves the best FID scores, indicating
-            our method effectively improves the performance of the pre-trained models on the main task.
+            SaRA can improve the performance of pre-trained models on the main task
+            (the original task it is trained on), by optimizing the initially ineffective parameters to
+            be effective and thus increasing the number of effective parameters.
           </p>
         </div>
         <div class="columns is-centered">
             <img src="./static/images/motivation.png" class="interpolation-image" alt="Interpolate start reference image.">
       </div>
+        <p>
+            Fig.2 Quantitative comparisons among different PEFT methods on Backbone Fine-tuning on
+            ImageNet, FFHQ, and CelebA-HQ datasets. Our method achieves the best FID scores, indicating
+            our method effectively improves the performance of the pre-trained models on the main task.
+          </p>
         <br/>
         <!-- <div class="columns is-centered">
             <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image.">
       </div> -->
           </div>
         </div>
-
+<div class="content has-text-centered">
     <h3 class="title is-4">Downstream Dataset Fine-tuning</h3>
-        <div class="content has-text-justified">
+        <div class="content has-text-centered">
           <p>
             In this experiment, we choose 5 widely-used datasets from CIVITAI with 5 different styles to conduct the fine-tuning experiments, which are Barbie Style, Cyberpunk Style, Elementfire Style, Expedition Style and Hornify Style
             from top to bottom. Our methods can learn the target domain style accurately while achieving
@@ -218,18 +242,24 @@
             <img src="./static/images/sd1.5.png" class="interpolation-image" alt="Interpolate start reference image.">
       <!-- </div> -->
             </div>
-          <br/>
           <p>
-            Comparisons with different parameter-efficient fine-tuning methods (LoRA Hu et al. (2021),
-            Adaptformer Chen et al. (2022), and LT-SFT Ansell et al. (2021)), along with full-parameter fine-
+            Fig.3 Qualitative comparison on Stable Diffusion 1.5. Our can learn the domain-specific knowledge
+            well whiling generating images that are consistent to the given prompts.
+          </p>
+          </div>
+          <br/>
+
+          <div class="columns is-centered">
+            <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image.">
+            </div>
+
+            <p>
+            Tab.1 Comparisons with different parameter-efficient fine-tuning methods, along with full-parameter fine-
             tuning on Stable Diffusion 1.5, 2.0, and 3.0. For most of the conditions, our model achieves the
             best FID and VLHI score, indicating that our model learns domain-specific knowledge successfully
             while keeping the prior information well. Bold and underline represent optimal and sub-optimal
             results, respectively.
           </p>
-          <div class="columns is-centered">
-            <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image.">
-            </div>
           <br/>
           <!-- <div class="columns is-centered">
             <div class="column is-three-fifths has-text-centered">
@@ -237,40 +267,49 @@
       </div>
             </div> -->
         </div>
-
+<div class="content has-text-centered">
     <h2 class="title is-4">Image Customization</h2>
-        <div class="content has-text-justified">
-          <p>
-            Qualitative comparisons among different PEFT methods on image customization by fine-
-            tuning the UNet model in Dreambooth (Van Le et al., 2023). Our model can accurately capture the
-            target feature while preventing the model from overfitting, outperforming Dreambooth with other
-            PEFT methods and Textual inversion
+  <p>
+            Since Dreambooth requires fine-tuning the UNet network, SaRA can be employed to
+    fine-tune the UNet and achieve image customization.
           </p>
+
+        <div class="content hhas-text-centered">
+
           <div class="columns is-centered">
             <img src="./static/images/dreambooth.png" class="interpolation-image" alt="Interpolate start reference image.">
       </div>
+          <p>
+            Fig.4 Qualitative comparisons among different PEFT methods on image customization by fine-tuning the UNet model in Dreambooth. Our model can accurately capture the
+            target feature while preventing the model from overfitting, outperforming Dreambooth with other
+            PEFT methods and Textual inversion.
+          </p>
+          </div>
           </div>
           <br/>
-    
+    <div class="content has-text-centered">
       <h2 class="title is-4">Controllable Video Generation</h2>
-          <div class="content has-text-justified">
+          <div class="content has-text-centered">
               <p>
-                We further investigate the effectiveness of our method in fine-tuning video generation models.The following gifs shows four motions respectively:ZoomIn,ZoomOut,PanLeft and PanRight.
+                We further investigate the effectiveness of our method in fine-tuning video generation models (AnimateDiff) on
+                datasets with different camera motions, including: ZoomIn, ZoomOut, PanLeft, and PanRight. SaRA keeps the model
+                prior well and learns accurate camera motions.
               </p>
             <div class="columns is-centered">
               <img src="./static/images/motions.gif" alt="GIF 1" autoplay loop playsinline height="100%">
             </div>
           </div>
+      </div>
 
 </section>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@inproceedings{hu2023anomalydiffusion,
-  title={AnomalyDiffusion: Few-Shot Anomaly Image Generation with Diffusion Model},
-  author={Hu, Teng and Zhang, Jiangning and Yi, Ran and Du, Yuzhen and Chen, Xu and Liu, Liang and Wang, Yabiao and Wang, Chengjie},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+    <pre><code>@inproceedings{hu2024sara,
+  title={SaRA: High-Efficient Diffusion Model Fine-tuning with Progressive Sparse Low-Rank Adaptation},
+  author={Hu, Teng and Zhang, Jiangning and Yi, Ran and Huang, Hongrui and Wang, Yabiao and Ma Lizhuang},
+  booktitle={Arxiv},
   year={2024}
 }
 </code></pre>
