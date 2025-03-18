@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="IAR: Improving Autoregressive Visual Generation with Cluster-Oriented Token Prediction">
+  <meta name="keywords" content="Autoregressive,Visual Generation,Token Prediction,LLM-based Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Improving Autoregressive Visual Generation with Cluster-Oriented Token Prediction</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://sjtuplayer.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Improving Autoregressive Visual Generation with Cluster-Oriented Token Prediction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://sjtuplayer.github.io/">Teng Hu</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhangzjn.github.io/">Jiangning Zhang</a><sup>2,3*</sup>,</span>
+            <span class="author-block">
+              <a href="https://yiranran.github.io/">Ran Yi</a><sup>1†</sup>,
+            </span>
+            <span class="author-block">
+              <a>Jieyu Weng</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://orcid.org/0000-0002-6592-8411/">Yabiao Wang</a><sup>2,3</sup>,
+            </span>
+            <span class="author-block">
+              <a>Xianfang Zeng</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a>Zhucun Xue</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a>Lizhuang Ma</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University</span>
+            <span class="author-block"><sup>2</sup>Youtu Lab, Tencent</span>
+            <span class="author-block"><sup>3</sup>Zhejiang University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2501.00880"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2501.00880"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/sjtuplayer/IAR"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Employing LLMs for visual generation has recently become a research focus. However, existing methods primarily transfer the LLM architecture to visual generation without considering fundamental differences between language and vision. We present IAR, an Improved AutoRegressive Visual Generation method, which leverages the correlation of visual embeddings to enhance model training efficiency and generation quality. We propose a Codebook Rearrangement strategy using balanced k-means clustering and a Cluster-oriented Cross-entropy Loss, significantly improving robustness and quality. Extensive experiments demonstrate that IAR improves performance while reducing training time by half across different model sizes.
+          </p>
+        </div>
+      </div>
+    </div>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="content has-text-centered">
+    <h2 class="title is-4">Method</h2>
+    <p>
+      We propose IAR, an Improved Autoregressive Visual
+Generation method, which leverages the correlation of visual embeddings to enhance the training efficiency and
+performance of LLM-based visual generation models.
+    </p>
+
+  <div class="columns is-centered">
+          <img src="./static/images/method.png" class="interpolation-image" alt="Interpolate start reference image.">
+    </div>
+  <div class="content has-text-centered">
+    <br/>
+    <p>
+      Figure 1. Model framework: 1) Codebook Rearrangement: we first use a balanced K-means clustering method to rearrange the codebook,
+which divides the codebook into n clusters, with the image codes in each cluster sharing a high similarity. 2) Cluster-oriented Constraint:
+During the training process, we first quantize the image patches using the rearranged codebook.
+    </p>
+  </div>
+
+  <div class="columns is-centered">
+    <img src="./static/images/compare.png" class="interpolation-image" alt="Interpolate start reference image." width="70%">
+</div>
+    <div class="content has-text-centered">
+      <br/>
+      <p>
+        Figure 2. When an autoregressive model predicts a wrong token,
+the previous methods may predict an irrelevant token that
+causes artifacts. Our IAR alleviates this issue by ensuring a high
+probability of the predicted token located in the correct cluster.
+      </p>
+    </div>
+
+      <h2 class="title is-4">Implementation</h2>
+      <p>
+        We introduce a Codebook Rearrangement strategy that
+uses balanced K-means clustering algorithm to rearrange
+the image codebook, ensuring high similarity across image embeddings within each cluster.
+      </p>
+<div class="columns is-centered">
+            <img src="./static/images/implementation.png" class="interpolation-image" alt="Interpolate start reference image." width="50%">
+      </div>
+      <br/>
+    </div>
+
+    <p class="mb-4">
+      We propose a Cluster-oriented Cross-entropy Loss that
+      relaxes the original token-oriented cross-entropy, ensuring that even if the model predicts the wrong token index,
+      there is still a high probability that the token is in the correct cluster, thereby generating high-quality images.
+    </p>
+    
+    <div class="columns is-centered mt-4">
+      <img src="./static/images/combine.png" class="interpolation-image" alt="Interpolate start reference image." width="30%">
+    </div>
+    
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+        <h2 class="title is-4">Comparisons with baseline</h2>
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Generation Quality and Diversity</h3> -->
+          <p>
+            We compare our model with
+the GAN-based methods, diffusion-based methods, mask-prediction-based methods
+and autoregressive-based methods on ImageNet.
+          </p>
+        </div>
+        <div class="columns is-centered">
+            <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image."width="60%">
+      </div>
+        <p>
+          Table 1. Comparison between different types of image generation model on class-conditional ImageNet 256×256 benchmark with FID, IS, precision, and recall.
+          </p>
+        <br/>
+        <!-- <div class="columns is-centered">
+            <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image.">
+      </div> -->
+          </div>
+        </div>
+        
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="content has-text-centered">
+            <h2 class="title is-4">More comparisons with LlamaGen</h2>
+        <p>
+          We compare our model with
+the GAN-based methods, diffusion-based methods, mask-prediction-based methods
+and autoregressive-based methods on ImageNet.
+        </p>
+      </div>
+      <div class="columns is-centered">
+          <img src="./static/images/table2.png" class="interpolation-image" alt="Interpolate start reference image."width="85%">
+    </div>
+      <p>
+        Table 2. Comparison with LlamaGen across different image tokens and model sizes. Following LlamaGen, we only train XL and
+XXL version on 16 × 16 tokens for 50 epochs.
+        </p>
+      <br/>
+      <!-- <div class="columns is-centered">
+          <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image.">
+    </div> -->
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-centered">
+          <h2 class="title is-4">Guidance Effects, Scaling, and Efficiency</h2>
+      <p>
+        We also conduct experiments to analyze how CFG levels impact quality, how model size influences performance, and how training speed varies across models.
+      </p>
+    </div>
+    <div class="columns is-centered">
+        <img src="./static/images/table3.png" class="interpolation-image" alt="Interpolate start reference image."width="85%">
+  </div>
+    <p>
+      Figure 3. (a) Model performance (IAR-B and IAR-L) across different CFGs; (b) Model performance on different parameter numbers
+(111M to 3B) compared to LlamaGen; and (c) Model performance on different epochs compared to LlamaGen.
+      </p>
+    <br/>
+    <!-- <div class="columns is-centered">
+        <img src="./static/images/table1.png" class="interpolation-image" alt="Interpolate start reference image.">
+  </div> -->
+      </div>
+    </div>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{hu2025improving,
+      title={Improving Autoregressive Visual Generation with Cluster-Oriented Token Prediction},
+      author={Hu, Teng and Zhang, Jiangning and Yi, Ran and Weng, Jieyu and Wang, Yabiao and Zeng, Xianfang and Xue, Zhucun and Ma, Lizhuang},
+      journal={arXiv preprint arXiv:2501.00880},
+      year={2025}
+}</code></pre>
+  </div>
+</section>
+
+</body>
+</html>
