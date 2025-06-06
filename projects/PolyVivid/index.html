@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style> .container.is-max-desktop { max-width: 70%; } </style>
+  <style>
+    .swiper-slide { margin-right: 10px; }
+    
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 5px;
+    }
+    .description {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 10px;
+    }
+
+    .video-container:hover .description {
+      opacity: 1;
+    }
+    /* 每个视频容器 */
+    .video-container {
+        position: relative;
+        width: 100%;
+        background-color: black;
+        overflow: hidden;
+    }
+
+    /* 主视频 */
+    .main-video {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* 左上角的图片 */
+    .top-left-image {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 60px; /* 图片宽度 */
+        height: auto; /* 高度自适应 */
+        border: 2px solid white;
+        border-radius: 80%; /* 圆形图片 */
+    }
+    .top-left-image-2 {
+        position: absolute;
+        top: 80px;
+        left: 10px;
+        width: 60px; /* 图片宽度 */
+        height: auto; /* 高度自适应 */
+        border: 2px solid blue;
+        border-radius: 80%; /* 圆形图片 */
+    }
+    /* 右上角的副视频 */
+    .top-right-video {
+        position: absolute;
+        top: 70px;
+        left: 10px;
+        width: 120px; /* 副视频宽度 */
+        height: auto; /* 高度自适应 */
+        border: 2px solid blue;
+        border-radius: 0%; /* 圆角矩形 */
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="PolyVivid: Vivid Multi-Subject Video Generation with Cross-Modal Interaction and Enhancement">
+  <meta name="keywords" content="Video Generation, Video Customization, Multimodal-Driven">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PolyVivid: Vivid Multi-Subject Video Generation with Cross-Modal Interaction and Enhancement</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">PolyVivid: Vivid Multi-Subject Video Generation with Cross-Modal Interaction and Enhancement</h1>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered"></div>
+    <div class="content has-text-justified">
+      <p>
+        Despite recent advances in video generation, existing models still lack fine-grained controllability, especially for multi-subject customization with consistent identity and interaction.
+        In this paper, we propose PolyVivid, a multi-subject video customization framework that enables flexible and identity-consistent generation. To establish accurate correspondences between subject images and textual entities, we design a VLLM-based text-image fusion module that embeds
+          visual identities into the textual space for precise grounding.
+          To further enhance identity preservation and subject interaction, we propose a 3D-RoPE-based enhancement module that enables structured bidirectional fusion between text and image embeddings.
+          Moreover, we develop an attention-inherited identity injection module to effectively inject fused identity features into the video generation process, mitigating identity drift. Finally, we construct an MLLM-based data pipeline that combines MLLM-based grounding,
+          segmentation, and a clique-based subject consolidation strategy to produce high-quality multi-subject data, effectively enhancing subject distinction and reducing ambiguity in downstream video generation.
+        Extensive experiments demonstrate that PolyVivid achieves superior performance in identity fidelity, video realism, and subject alignment, outperforming existing open-source and commercial baselines.
+          More comprehensive video results and comparisons are shown on the project page in the supplementary material.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="column has-text-centered">
+        <h2 class="title is-3">Comparison with State-of-the-Art Methods</h2>
+        <div class="content has-text-justified">
+          <b>
+            We compare our model on two-subject video customization with the state-of-the-art methods, inluding Keling, Vidu, Pika, Skyreels A2, and VACE.
+          </b>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/1.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A woman is dressed in elegant attire, dancing gracefully beneath a tall building.</p>
+          </div>
+        </div>
+<!--        <div class="columns is-centered">-->
+<!--          <div class="column">-->
+<!--              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">-->
+<!--              <source src="./static/videos/two-compare/2.mp4"-->
+<!--                      type="video/mp4">-->
+<!--              </video>-->
+<!--              <p>Prompt: A woman is holding a paintbrush, drawing a picture of a cat on her home blackboard.</p>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/3.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A woman wearing a pink blazer is showcasing a Chanel lip gloss.</p>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/4.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A young girl is holding a roasted duck.</p>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/5.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A woman wearing a white tank top is holding an iPhone.</p>
+          </div>
+        </div>
+
+          <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/8.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A man and a woman walks hand in hand on the road.</p>
+          </div>
+        </div>
+
+          <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/6.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A tiger  is fighting with a giraffe.</p>
+          </div>
+        </div>
+
+          <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/two-compare/7.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A giraffe is fighting with a giraffe.</p>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="column has-text-centered">
+        <h2 class="title is-3">Comparison with State-of-the-Art Methods (Three Subjects)</h2>
+        <div class="content has-text-justified">
+          <b>
+            We compare our model on three-subject video customization with the state-of-the-art methods, inluding Keling, Vidu, Pika, Skyreels A2, and VACE.
+          </b>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/three-compare/1.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A man is drinking coffe on the sofa.</p>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column">
+              <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/three-compare/2.mp4"
+                      type="video/mp4">
+              </video>
+              <p>Prompt: A person riding on a tiger, holding an umbrella.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="column has-text-centered">
+        <h2 class="title is-3">More Multi-subject Customization Results</h2>
+        <div class="content has-text-justified">
+          <b>
+            We show more multi-subject customization results. It can be observed that our model is capable of generating natural and
+              realistic interactions between various types of inputs, demonstrating its potential effectiveness in applications such as advertising and movie production.
+              Furthermore, beyond object interactions, our model can also generate specified subjects within assigned scenes,
+              which is particularly useful for personalized content creation and other creative industries.
+          </b>
+        </div>
+        <div id="gallery-3" class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/1.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A man is looking at a plate of fish, preparing to eat it.</p>
+                
+            </div>
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/2.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A woman is looking at a small, fluffy dog.</p>
+
+            </div>
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/3.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A man is introducing a suitcase.</p>
+
+            </div>
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/4.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A man is standing next to a traditional Japanese lantern.</p>
+
+            </div>
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/5.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A woman is holding a bag and enthusiastically introducing it.</p>
+
+            </div>
+            <div class="swiper-slide">
+                    <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                      <source src="./static/videos/two-more/6.mp4"
+                              type="video/mp4">
+                    </video>
+                    <p>A woman caresses a white dog on the grass.</p>
+
+              </div>
+        <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/7.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A woman holds a bag of Lay's chips.</p>
+
+            </div>
+
+      <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/two-more/8.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A man in a tuxedo stands beside Tokyo Tower.</p>
+
+            </div>
+
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="section hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="column has-text-centered">
+        <h2 class="title is-3">More Multi-subject Customization Results (Three Subjects)</h2>
+        <div class="content has-text-justified">
+          <b>
+            We show more three-subject customization results, featuring diverse combinations such as human-animal-animal,
+              human-object-animal, human-animal-scene, and human-object-object. These results illustrate that our model can effectively handle different combinations
+              of inputs and generate complex interactions among multiple subjects, all while maintaining strong identity preservation.
+              This demonstrates the superior capability of our model in customized video generation for multi-subject scenarios.
+          </b>
+        </div>
+        <div id="gallery-3" class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/three-more/1.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A person is walking a dog under the Eiffel Tower.</p>
+
+            </div>
+
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/three-more/2.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A person is feeding a panda carrots, with an elephant nearby.</p>
+
+            </div>
+
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/three-more/3.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A person is sitting on a sofa, petting a cat.</p>
+
+            </div>
+
+            <div class="swiper-slide">
+                  <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+                    <source src="./static/videos/three-more/4.mp4"
+                            type="video/mp4">
+                  </video>
+                  <p>A person is dragging a suitcase and chasing after an airplane.</p>
+
+            </div>
+
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper('#gallery-1', {
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    navigation: {
+      nextEl: '#gallery-1 .swiper-button-next',
+      prevEl: '#gallery-1 .swiper-button-prev',
+    },
+    pagination: {
+      el: '#gallery-1 .swiper-pagination',
+      clickable: true,
+    },
+    loop: true,
+  });
+  var swiper3 = new Swiper('#gallery-3', {
+    slidesPerView: 2,
+    slidesPerGroup: 2,
+    navigation: {
+      nextEl: '#gallery-3 .swiper-button-next',
+      prevEl: '#gallery-3 .swiper-button-prev',
+    },
+    pagination: {
+      el: '#gallery-3 .swiper-pagination',
+      clickable: true,
+    },
+    loop: true,
+  });
+</script>
+
+</body>
+</html>
