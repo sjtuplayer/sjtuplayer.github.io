@@ -110,7 +110,7 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 </head>
-<body>
+<body >
 
 <section class="hero is-light">
   <div class="hero-body">
@@ -119,22 +119,89 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">PolyVivid: Vivid Multi-Subject Video Generation with Cross-Modal Interaction and Enhancement</h1>
 
+            <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://sjtuplayer.github.io/">Teng Hu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="./">Zhentao Yu</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="./">Zhengguang Zhou</a><sup>2</sup>,
+            </span>
+                <span class="author-block">
+              <a href="https://zhangzjn.github.io/">Jiangning Zhang</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="./">Yuan Zhou</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="./">Qinglin Lu</a><sup>2</sup>,
+            </span>
+                            <span class="author-block">
+              <a href="https://yiranran.github.io/">Ran Yi</a><sup>1†</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University, Shanghai, China</span>  <br>
+            <span class="author-block"><sup>2</sup>Tencent Hunyuan, Shanghai, China </span> <br>
+              <span class="author-block"><sup>3</sup>Zhejiang University, Zhejiang, China </span>
+          </div>
+
+                      <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://export.arxiv.org/pdf/2409.06633"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://export.arxiv.org/abs/2409.06633"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+<!--              <span class="link-block">-->
+<!--                <a href="https://github.com/sjtuplayer/SaRA"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="fab fa-github"></i>-->
+<!--                  </span>-->
+<!--                  <span>Code</span>-->
+<!--                  </a>-->
+<!--              </span>-->
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
+
+
+
 <section class="section">
   <div class="container is-max-desktop">
+    <!-- Abstract. -->
+      <div class="columns is-centered">
+  <div class="column is-narrow has-text-centered">
+    <img src="./static/images/teaser.png" style="width: 1000px; height: auto;" alt="Interpolate start reference image.">
+  </div>
+</div>
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
-      </div>
-    </div>
-
-    <div class="columns is-centered has-text-centered"></div>
-    <div class="content has-text-justified">
+        <div class="content has-text-justified">
       <p>
         Despite recent advances in video generation, existing models still lack fine-grained controllability, especially for multi-subject customization with consistent identity and interaction.
         In this paper, we propose PolyVivid, a multi-subject video customization framework that enables flexible and identity-consistent generation. To establish accurate correspondences between subject images and textual entities, we design a VLLM-based text-image fusion module that embeds
@@ -143,13 +210,56 @@
           Moreover, we develop an attention-inherited identity injection module to effectively inject fused identity features into the video generation process, mitigating identity drift. Finally, we construct an MLLM-based data pipeline that combines MLLM-based grounding,
           segmentation, and a clique-based subject consolidation strategy to produce high-quality multi-subject data, effectively enhancing subject distinction and reducing ambiguity in downstream video generation.
         Extensive experiments demonstrate that PolyVivid achieves superior performance in identity fidelity, video realism, and subject alignment, outperforming existing open-source and commercial baselines.
-          More comprehensive video results and comparisons are shown on the project page in the supplementary material.
       </p>
+        </div>
+      </div>
     </div>
+    </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+      </div>
+    </div>
+
+<div class="columns is-centered">
+  <div class="column is-narrow has-text-centered">
+    <img src="./static/images/framework.png" style="width: 1000px; height: auto;" alt="Interpolate start reference image.">
+  </div>
+</div>
+    <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                          <div class="content has-text-justified">
+ <p>
+            <strong>PolyVivid</strong> is designed for customizable video generation involving multiple subjects.
+     It takes as input several subject images and a text prompt that describes the scene, actions, and interactions,
+     aiming to preserve each subject’s identity and faithfully reflect the described behaviors. The framework begins with
+     a <strong>VLLM-based text-image fusion module</strong> that encodes both the subject images and the text into a unified semantic space.
+     To capture detailed identity information that standard vision-language models often miss, a pretrained variational autoencoder is used to
+     extract fine-grained visual features from the subject images. These features are then processed through an
+     <strong>identity-interaction enhancement module</strong>, which uses a structured
+     <strong>3D positional encoding mechanism for text-image interaction</strong> to allow mutual flow of information between image and text representations.
+     This results in text tokens that carry identity information and image tokens that are aware of interaction cues.
+     Finally, an <strong>Attention-Inherited Identity Injection Module</strong> integrates these enhanced image
+     features into the latent space of the video generator using a multimodal cross-attention strategy,
+     ensuring identity consistency while enabling text-aligned interactions during video synthesis.
+     Together, these components enable PolyVivid to generate high-fidelity videos with accurate identity
+     preservation and realistic multi-subject interaction guided by natural language.
+          </p>
+    </div>
+         </div>
+         </div>
 
   </div>
 </section>
-
 
 
 <section class="section hero is-small">
