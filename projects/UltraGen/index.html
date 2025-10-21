@@ -97,7 +97,7 @@
             </div> -->
             <div class="is-size-5 publication-authors">
               <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University, Shanghai, China</span><br />
-              <span class="author-block"><sup>2</sup>Youtu Lab, Tencent, Shanghai, China </span><br />
+              <span class="author-block"><sup>2</sup>Zhejiang University, Shanghai, China </span><br />
               <!-- <span class="author-block"><sup>3</sup>Harbin Institute of Technology, Harbin, China </span> -->
             </div>
   
@@ -158,7 +158,7 @@
       <div class="column has-text-centered">
         <div class="content">
           <h3 class="title is-4">
-            High-Resolution Video Generation
+            4k Video Generation
           </h3>
           <div class="item">
 <!--            <video id="teaser" autoplay controls muted loop playsinline height="100%">-->
@@ -174,12 +174,49 @@
   </div>
 </section>
 
+  <section class="section">
+      <div class="container is-max-desktop">
+<div class="highlights-container">
+  <div class="columns is-centered">
+      <div class="column is-fulls">
+            <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Highlights</h2>
+              </div>
+  <div class="highlight-item">
+    <p><strong>(1) Breakthrough Resolution Capability:</strong>
+    As the first model to achieve native high-quality 4K video generation, UltraGen seamlessly scales pre-trained low-resolution (≤720P) video diffusion models to 1080P/2K/4K, eliminating the "pseudo-high-resolution" limitation of traditional super-resolution pipelines. It delivers authentic, detail-rich content that outperforms state-of-the-art methods in both 1080P and 4K tasks.</p>
+  </div>
+
+  <div class="highlight-item">
+    <p><strong>(2) Efficient Hierarchical Dual-Branch Attention:</strong>
+    UltraGen innovatively decouples full attention into local and global branches to solve the quadratic computational bottleneck of diffusion transformers. The local branch focuses on fine-grained regional details, while the global branch ensures semantic consistency—all with a hierarchical design that avoids the O((T·H·W)²) complexity of traditional models.</p>
+  </div>
+
+  <div class="highlight-item">
+    <p><strong>(3) Computational Efficiency & Speed Advantage:</strong>
+    With its spatially compressed global modeling and cross-window local attention, UltraGen achieves a 4.78× speedup for 4K video generation and 2.69× speedup for 1080P generation compared to the popular Wan-T2V-1.3B baseline. It makes high-resolution video training and inference feasible without excessive hardware costs.</p>
+  </div>
+
+  <div class="highlight-item">
+    <p><strong>(4) Superior Quality Across Metrics:</strong>
+    In quantitative evaluations, UltraGen sets new standards:
+    Lowest HD-FVD (214.12 for 1080P, 424.61 for 4K) for high-res similarity to real videos;
+    Highest HD-MSE (390.19 for 1080P, 386.01 for 4K) and HD-LPIPS (0.5455 for 1080P, 0.6450 for 4K) for fine-grained details;
+      temporal consistency (0.9827 for 1080P) and top CLIP scores among native high-res generators, ensuring prompt alignment and smooth frame transitions.</p>
+  </div>
+
+
+        </div>
+</div>
+  </div>
+        </div>
+    </section>
 
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-fulls">
 
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
@@ -207,7 +244,7 @@ Extensive experiments demonstrate that UltraGen can effectively scale pre-traine
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-fulls">
 
         <h2 class="title is-3">Framework</h2>
         <div class="content has-text-justified">
@@ -229,7 +266,7 @@ Extensive experiments demonstrate that UltraGen can effectively scale pre-traine
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-fulls">
 
         <h2 class="title is-3">Framework</h2>
         <div class="content has-text-justified">
@@ -251,7 +288,7 @@ Extensive experiments demonstrate that UltraGen can effectively scale pre-traine
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-fulls">
 
         <h2 class="title is-3">Framework</h2>
         <div class="content has-text-justified">
