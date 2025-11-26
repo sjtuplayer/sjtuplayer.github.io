@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0 auto; max-width: 1400px; padding: 20px; color: #333; text-align: center; }
+        h1 { text-align: center; font-size: 3em; margin-bottom: 10px; }
+        h2 { border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-top: 40px; text-align: center; font-size: 1.8em; }
+        h2.section-title { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border-bottom: 3px solid #007bff; margin-top: 50px; font-size: 1.8em; }
+        .intro { text-align: center; margin-bottom: 40px; font-size: 1em; line-height: 1.6; color: #666; }
+        .section-description { font-size: 1.05em; color: #555; margin-top: -5px; margin-bottom: 25px; text-align: center; }
+        .section-description { font-size: 1.05em; color: #555; margin-top: -5px; margin-bottom: 25px; text-align: center; }
+        .video-section { margin-bottom: 40px; text-align: center; }
+        .video-row { display: flex; flex-wrap: wrap; margin: 0 -10px; align-items: flex-start; justify-content: center; }
+        .video-container { flex: 0 1 auto; margin: 10px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; min-width: 200px; max-width: 300px; }
+        .video-fixed-ratio { width: 100%; height: auto; max-height: 500px; object-fit: contain; background-color: #000; border: 1px solid #ddd; }
+        .video-container p { margin-top: 8px; font-size: 14px; color: #555; word-wrap: break-word; font-weight: 600; }
+        .comparison-prompt { width: 100%; text-align: center; font-weight: bold; font-size: 1.05em; margin-top: 10px; margin-bottom: 10px; padding: 0 10px; box-sizing: border-box; color: #444; }
+        .case-divider { margin: 30px 0; padding: 10px 0; border-top: 1px solid #eee; }
+        footer { text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 0.9em; }
+    </style>
+    <script>
+        // Wait for page to load and unify video dimensions
+        window.addEventListener('load', function() {
+            // Get all video rows
+            const videoRows = document.querySelectorAll('.video-row');
+            
+            videoRows.forEach(row => {
+                // Get all videos in this row
+                const videos = row.querySelectorAll('video');
+                if (videos.length === 0) return;
+                
+                // The first video should be "Ours"
+                const oursVideo = videos[0];
+                
+                // Wait for the first video to load metadata
+                oursVideo.addEventListener('loadedmetadata', function() {
+                    const targetWidth = oursVideo.videoWidth;
+                    const targetHeight = oursVideo.videoHeight;
+                    const aspectRatio = targetWidth / targetHeight;
+                    
+                    // Set all videos in this row to the same dimensions
+                    videos.forEach(video => {
+                        video.style.width = '100%';
+                        video.style.height = 'auto';
+                        video.style.aspectRatio = aspectRatio;
+                        video.style.objectFit = 'fill'; // Stretch to fill
+                    });
+                });
+                
+                // If video is already loaded, trigger immediately
+                if (oursVideo.readyState >= 1) {
+                    oursVideo.dispatchEvent(new Event('loadedmetadata'));
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</h1>
+    <p class="intro">Anonymous Submission - Supplementary Materials</p>
+
+    <!-- Demo Video Section -->
+    <div class="video-section" style="margin-bottom: 60px;">
+        <h2>Demo Video</h2>
+        <p class="section-description">This demo video provides an overview of our Harmony model's capabilities in harmonizing audio and video generation through cross-task synergy.</p>
+        <div style="display: flex; justify-content: center; margin: 30px 0;">
+            <div style="max-width: 900px; width: 100%;">
+                <video style="width: 100%; height: auto; border: 2px solid #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" controls>
+                    <source src="demo/demo_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- English Speech Comparison Section -->
+    <div class="video-section">
+        <h2 class="section-title">1. English Speech Comparison</h2>
+        <p class="section-description">This section demonstrates the audio-visual generation quality comparison on English speech scenarios. We compare our method (Ours) with three state-of-the-art baselines: JavisDiT, Ovi, and UniVerse-1 across 9 test cases. <strong>Note:</strong> JavisDiT is a text-to-audio-video generation method, so the generated videos may have visual differences compared to other methods.</p>
+        
+        <!-- Case 1 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> These elective procedures aren't covered by insurance.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/1-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/1-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/1-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/1-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> Yes, I'm George McFly, your new neighbor across the street.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/2-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/2-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/2-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/2-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> Thank you all for coming today.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/3-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/3-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/3-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/3-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> It hurts to be ignored by you and watch you praise others.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/4-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/4-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/4-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/4-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 5 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> He'll talk about the Three Kingdoms, Water Margin, and Five Dynasties.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/5-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/5-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/5-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/5-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 6 -->
+        <div class="case-divider"></div>
+        <p class="section-description" style="color: #d9534f; font-size: 0.95em; margin-top: 5px; margin-bottom: 15px;"><strong>Note:</strong> Ovi and UniVerse-1 are prone to generating static videos for non-realistic scene cases.</p>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> To keep people's attention, you must use rapid fire hooks, sudden register changes, and repetitive rhythms.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/6-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/6-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/6-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/6-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 7 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> The process is manual; I have to upload and send sensitive information, like a picture of my passport.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/7-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/7-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/7-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/7-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 9 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> This positive change feels like it's coming from people who finally gained the authority to speak.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/9-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/9-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/9-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/9-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 14 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> We've noticed there are always large quantities of supplies like pens, paper, and various items.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/14-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/14-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/14-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/english_speech/14-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chinese Speech Comparison Section -->
+    <div class="video-section">
+        <h2 class="section-title">2. Chinese Speech Comparison</h2>
+        <p class="section-description">This section demonstrates the audio-visual generation quality comparison on Chinese speech scenarios. We compare our method with baseline methods across 3 test cases.</p>
+        
+        <!-- Case 2 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> 要记的太多了，一点都没道理。</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/2-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/2-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/2-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/2-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> 你最终会惩罚自己，说'你这方面和其它都很差'。</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/3-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/3-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/3-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/3-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> 导师在关键阶段影响学生。</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/4-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/4-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/4-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/4-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Environmental Sound Comparison Section -->
+    <div class="video-section">
+        <h2 class="section-title">3. Environmental Sound Comparison</h2>
+        <p class="section-description">This section demonstrates the audio-visual generation quality comparison on environmental sound scenarios. We compare our method with baseline methods across 8 test cases.</p>
+        
+        <!-- Case 5 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> Ocean waves are crashing and rolling onto the sandy beach.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/5-ours_cropped.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/5-universe_cropped.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/5-ovi_cropped.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/5-javisdit_cropped.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 6 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> A rich, harmonious sound resonates from the violin.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/6-ours_cropped.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/6-universe_cropped.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/6-ovi_cropped.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/6-javisdit_cropped.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 7 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> An acoustic guitar is being strummed with rhythmic melodic patterns.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/7-ours_cropped.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/7-universe_cropped.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/7-ovi_cropped.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/7-javisdit_cropped.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 8 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> Fireworks are exploding in the sky with loud bangs and crackles.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/8-ours_cropped.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/8-universe_cropped.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/8-ovi_cropped.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/8-javisdit_cropped.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 1 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> One or more frogs croaking by a pond.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/1-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/1-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/1-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/1-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> Someone is playing the ukulele, producing a cheerful, crisp sound.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/2-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/2-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/2-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/2-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> A black-capped chickadee making its signature "chick-a-dee-dee" call.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/3-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/3-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/3-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/3-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="case-divider"></div>
+        <p class="comparison-prompt"><strong>Audio Prompt:</strong> A mandolin is being played, producing a bright, light melody.</p>
+        <div class="video-row">
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/4-ours.mp4" type="video/mp4"></video>
+                <p>Ours</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/4-universe.mp4" type="video/mp4"></video>
+                <p>UniVerse-1</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/4-ovi.mp4" type="video/mp4"></video>
+                <p>Ovi</p>
+            </div>
+            <div class="video-container">
+                <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/env/4-javisdit.mp4" type="video/mp4"></video>
+                <p>JavisDiT</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</p>
+        <p>Anonymous Submission for Review</p>
+    </footer>
+</body>
+</html>
