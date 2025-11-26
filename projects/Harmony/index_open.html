@@ -1,84 +1,285 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0 auto; max-width: 1400px; padding: 20px; color: #333; text-align: center; }
-        h1 { text-align: center; font-size: 3em; margin-bottom: 10px; }
-        h2 { border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-top: 40px; text-align: center; font-size: 1.8em; }
-        h2.section-title { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border-bottom: 3px solid #007bff; margin-top: 50px; font-size: 1.8em; }
-        .intro { text-align: center; margin-bottom: 40px; font-size: 1em; line-height: 1.6; color: #666; }
-        .section-description { font-size: 1.05em; color: #555; margin-top: -5px; margin-bottom: 25px; text-align: center; }
-        .section-description { font-size: 1.05em; color: #555; margin-top: -5px; margin-bottom: 25px; text-align: center; }
-        .video-section { margin-bottom: 40px; text-align: center; }
-        .video-row { display: flex; flex-wrap: wrap; margin: 0 -10px; align-items: flex-start; justify-content: center; }
-        .video-container { flex: 0 1 auto; margin: 10px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; min-width: 200px; max-width: 300px; }
-        .video-fixed-ratio { width: 100%; height: auto; max-height: 500px; object-fit: contain; background-color: #000; border: 1px solid #ddd; }
-        .video-container p { margin-top: 8px; font-size: 14px; color: #555; word-wrap: break-word; font-weight: 600; }
-        .comparison-prompt { width: 100%; text-align: center; font-weight: bold; font-size: 1.05em; margin-top: 10px; margin-bottom: 10px; padding: 0 10px; box-sizing: border-box; color: #444; }
-        .case-divider { margin: 30px 0; padding: 10px 0; border-top: 1px solid #eee; }
-        footer { text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 0.9em; }
-    </style>
-    <script>
-        // Wait for page to load and unify video dimensions
-        window.addEventListener('load', function() {
-            // Get all video rows
-            const videoRows = document.querySelectorAll('.video-row');
+
+  <style> .results-carousel .item img { width: 512px; height: 512px; } </style>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy">
+  <meta name="keywords" content="Audio-Video Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  
+  <style>
+    h2 { border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-top: 40px; text-align: center; font-size: 1.8em; }
+    h2.section-title { 
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      border: none;
+      margin: 50px auto 20px;
+      font-size: 1.6em;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      letter-spacing: 0.5px;
+    }
+    .video-section { margin-bottom: 60px; text-align: center; }
+    .intro { text-align: center; margin-bottom: 40px; font-size: 1em; line-height: 1.6; color: #666; }
+    .section-description { 
+      font-size: 1.05em; 
+      color: #555; 
+      margin-top: 15px; 
+      margin-bottom: 30px; 
+      text-align: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .video-row { display: flex; flex-wrap: wrap; margin: 0 -10px; align-items: flex-start; justify-content: center; }
+    .video-container { flex: 0 1 auto; margin: 10px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; min-width: 200px; max-width: 300px; }
+    .video-fixed-ratio { width: 100%; height: auto; max-height: 500px; object-fit: contain; background-color: #000; border: 1px solid #ddd; border-radius: 8px; }
+    .video-container p { margin-top: 8px; font-size: 14px; color: #555; word-wrap: break-word; font-weight: 600; }
+    .comparison-prompt { 
+      width: 100%; 
+      text-align: center; 
+      font-weight: bold; 
+      font-size: 1.05em; 
+      margin-top: 20px; 
+      margin-bottom: 15px; 
+      padding: 0 10px; 
+      box-sizing: border-box; 
+      color: #333;
+      line-height: 1.5;
+    }
+    .section-divider {
+      margin: 30px auto 20px;
+      padding: 0;
+      border-top: 2px solid #ddd;
+      max-width: 1067px;
+      width: 100%;
+    }
+    .case-divider { 
+      margin: 40px auto 20px; 
+      padding: 0; 
+      border-top: 1px dashed #999; 
+      max-width: 1067px;
+      width: 100%;
+    }
+    footer { 
+      text-align: center; 
+      margin-top: 80px; 
+      padding-top: 30px; 
+      color: #666; 
+      font-size: 0.9em; 
+    }
+    footer::before {
+      content: '';
+      display: block;
+      margin: 0 auto 30px;
+      width: 100%;
+      max-width: 1200px;
+      border-top: 2px solid #ddd;
+    }
+  </style>
+  
+  <script>
+    // Wait for page to load and unify video dimensions
+    window.addEventListener('load', function() {
+        // Get all video rows
+        const videoRows = document.querySelectorAll('.video-row');
+        
+        videoRows.forEach(row => {
+            // Get all videos in this row
+            const videos = row.querySelectorAll('video');
+            if (videos.length === 0) return;
             
-            videoRows.forEach(row => {
-                // Get all videos in this row
-                const videos = row.querySelectorAll('video');
-                if (videos.length === 0) return;
+            // The first video should be "Ours"
+            const oursVideo = videos[0];
+            
+            // Wait for the first video to load metadata
+            oursVideo.addEventListener('loadedmetadata', function() {
+                const targetWidth = oursVideo.videoWidth;
+                const targetHeight = oursVideo.videoHeight;
+                const aspectRatio = targetWidth / targetHeight;
                 
-                // The first video should be "Ours"
-                const oursVideo = videos[0];
-                
-                // Wait for the first video to load metadata
-                oursVideo.addEventListener('loadedmetadata', function() {
-                    const targetWidth = oursVideo.videoWidth;
-                    const targetHeight = oursVideo.videoHeight;
-                    const aspectRatio = targetWidth / targetHeight;
-                    
-                    // Set all videos in this row to the same dimensions
-                    videos.forEach(video => {
-                        video.style.width = '100%';
-                        video.style.height = 'auto';
-                        video.style.aspectRatio = aspectRatio;
-                        video.style.objectFit = 'fill'; // Stretch to fill
-                    });
+                // Set all videos in this row to the same dimensions
+                videos.forEach(video => {
+                    video.style.width = '100%';
+                    video.style.height = 'auto';
+                    video.style.aspectRatio = aspectRatio;
+                    video.style.objectFit = 'fill'; // Stretch to fill
                 });
-                
-                // If video is already loaded, trigger immediately
-                if (oursVideo.readyState >= 1) {
-                    oursVideo.dispatchEvent(new Event('loadedmetadata'));
-                }
             });
+            
+            // If video is already loaded, trigger immediately
+            if (oursVideo.readyState >= 1) {
+                oursVideo.dispatchEvent(new Event('loadedmetadata'));
+            }
         });
-    </script>
+    });
+  </script>
 </head>
 <body>
-    <h1>Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</h1>
-    <p class="intro">Anonymous Submission - Supplementary Materials</p>
 
-    <!-- Demo Video Section -->
-    <div class="video-section" style="margin-bottom: 60px;">
-        <h2>Demo Video</h2>
-        <p class="section-description">This demo video provides an overview of our Harmony model's capabilities in harmonizing audio and video generation through cross-task synergy.</p>
-        <div style="display: flex; justify-content: center; margin: 30px 0;">
-            <div style="max-width: 900px; width: 100%;">
-                <video style="width: 100%; height: auto; border: 2px solid #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" controls>
-                    <source src="demo/demo_video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                Teng Hu<sup>1</sup>,</span>
+              <span class="author-block">
+                Zhentao Yu<sup>2</sup>,</span>
+              <span class="author-block">
+                Guozhen Zhang<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Zihan Su<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                Zhengguang Zhou<sup>2</sup>,
+              </span>
+              <br />
+              <span class="author-block">
+                Youliang Zhang<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Yuan Zhou<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Qinglin Lu<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Ran Yi<sup>1</sup>
+              </span>
             </div>
+  
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University</span>
+              <span class="author-block"><sup>2</sup>Tencent Hunyuan</span>
+            </div>
+  
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="#"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+<!--                 Code Link. -->
+                <span class="link-block">
+                  <a href="#"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Github</span>
+                    </a>
+                </span>
+              </div>
+  
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </section>
+
+  <!-- Demo Video Section -->
+  <section class="section" id="teaser">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <div class="content">
+            <div class="item">
+              <iframe width="1024" height="576" src="https://www.youtube.com/embed/Q1LZ-4nhMAk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abstract Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="section-title">Abstract</h2>
+          <div class="section-divider"></div>
+          <div class="content has-text-justified" style="color: #555; line-height: 1.8; font-size: 1.05em;">
+            <p>
+              The synthesis of synchronized audio-visual content is a key challenge in generative AI, with open-source models facing challenges in robust audio-video alignment. 
+              Our analysis reveals that this issue is rooted in three fundamental challenges of the joint diffusion process: (1) <strong>Correspondence Drift</strong>, where concurrently evolving noisy latents impede stable learning of alignment; (2) inefficient global attention mechanisms that fail to capture fine-grained temporal cues; and (3) the intra-modal bias of conventional Classifier-Free Guidance (CFG), which enhances conditionality but not cross-modal synchronization.
+              To overcome these challenges, we introduce <strong>Harmony</strong>, a novel framework that mechanistically enforces audio-visual synchronization. We first propose a <strong>Cross-Task Synergy</strong> training paradigm to mitigate drift by leveraging strong supervisory signals from audio-driven video and video-driven audio generation tasks. Then, we design a <strong>Global-Local Decoupled Interaction Module</strong> for efficient and precise temporal-style alignment. Finally, we presents a novel <strong>Synchronization-Enhanced CFG (SyncCFG)</strong> that explicitly isolates and amplifies the alignment signal during inference. Extensive experiments demonstrate that Harmony establishes a new state-of-the-art, significantly outperforming existing methods in both generation fidelity and, critically, in achieving fine-grained audio-visual synchronization.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Framework Section -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="section-title">Framework</h2>
+          <div class="section-divider"></div>
+          <div class="columns is-centered" style="margin-top: 30px;">
+            <img src="./static/image/framework.png" class="interpolation-image" alt="Harmony Framework" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- English Speech Comparison Section -->
     <div class="video-section">
         <h2 class="section-title">1. English Speech Comparison</h2>
+        <div class="section-divider"></div>
         <p class="section-description">This section demonstrates the audio-visual generation quality comparison on English speech scenarios. We compare our method (Ours) with three state-of-the-art baselines: JavisDiT, Ovi, and UniVerse-1 across 9 test cases. <strong>Note:</strong> JavisDiT is a text-to-audio-video generation method, so the generated videos may have visual differences compared to other methods.</p>
         
         <!-- Case 1 -->
@@ -284,11 +485,12 @@
     <!-- Chinese Speech Comparison Section -->
     <div class="video-section">
         <h2 class="section-title">2. Chinese Speech Comparison</h2>
+        <div class="section-divider"></div>
         <p class="section-description">This section demonstrates the audio-visual generation quality comparison on Chinese speech scenarios. We compare our method with baseline methods across 3 test cases.</p>
         
         <!-- Case 2 -->
         <div class="case-divider"></div>
-        <p class="comparison-prompt"><strong>Speech Words:</strong> 要记的太多了，一点都没道理。</p>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> 要记的太多了,一点都没道理。</p>
         <div class="video-row">
             <div class="video-container">
                 <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/2-ours.mp4" type="video/mp4"></video>
@@ -310,7 +512,7 @@
 
         <!-- Case 3 -->
         <div class="case-divider"></div>
-        <p class="comparison-prompt"><strong>Speech Words:</strong> 你最终会惩罚自己，说'你这方面和其它都很差'。</p>
+        <p class="comparison-prompt"><strong>Speech Words:</strong> 你最终会惩罚自己,说'你这方面和其它都很差'。</p>
         <div class="video-row">
             <div class="video-container">
                 <video class="video-fixed-ratio" controls muted loop><source src="comparison_cases/chinese_speech/3-ours.mp4" type="video/mp4"></video>
@@ -357,6 +559,7 @@
     <!-- Environmental Sound Comparison Section -->
     <div class="video-section">
         <h2 class="section-title">3. Environmental Sound Comparison</h2>
+        <div class="section-divider"></div>
         <p class="section-description">This section demonstrates the audio-visual generation quality comparison on environmental sound scenarios. We compare our method with baseline methods across 8 test cases.</p>
         
         <!-- Case 5 -->
@@ -538,7 +741,6 @@
 
     <footer>
         <p>© 2025 Harmony: Harmonizing Audio and Video Generation through Cross-Task Synergy</p>
-        <p>Anonymous Submission for Review</p>
     </footer>
 </body>
 </html>
