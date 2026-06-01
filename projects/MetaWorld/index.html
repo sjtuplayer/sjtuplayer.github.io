@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MetaWorld Project Page</title>
+  <style>
+    :root {
+      --bg: #090c1a;
+      --bg-soft: #11152a;
+      --card: rgba(22, 28, 56, 0.75);
+      --card-border: rgba(160, 176, 255, 0.22);
+      --text: #e9ecff;
+      --muted: #adb6dd;
+      --accent: #86a8ff;
+      --accent-2: #7ef0d6;
+      --shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 15% 15%, #1b2250 0%, var(--bg) 55%);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 34px 20px 72px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(33, 46, 96, 0.7), rgba(20, 24, 48, 0.8));
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 30px 32px;
+      box-shadow: var(--shadow);
+      margin-bottom: 26px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 2.1vw, 2.3rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .sub {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    section {
+      margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+
+    .section-note {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .compare-group {
+      margin-bottom: 24px;
+      border: 1px solid rgba(168, 184, 255, 0.2);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(12, 17, 34, 0.65);
+    }
+
+    .compare-group h3 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: #d4dcff;
+      font-weight: 600;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .compare-view {
+      margin-top: 14px;
+    }
+
+    .compare-view-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #d4dcff;
+      margin-bottom: 8px;
+      padding-left: 2px;
+    }
+
+    .compare-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+      align-items: start;
+    }
+
+    .compare-top-card {
+      border: 1px solid rgba(160, 176, 255, 0.22);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(8, 12, 26, 0.65);
+    }
+
+    .compare-top-stack {
+      display: grid;
+      gap: 10px;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+    }
+
+    .compare-top-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      background: #000;
+    }
+
+    .compare-top-main img {
+      aspect-ratio: 16 / 9;
+    }
+
+    .compare-top-agent img {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      flex: 1;
+      aspect-ratio: auto;
+      object-fit: contain;
+      padding: 8px;
+      background: #fff;
+    }
+
+    .compare-img-caption {
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--muted);
+      padding: 8px 8px 10px;
+      line-height: 1.2;
+      background: rgba(134, 168, 255, 0.08);
+    }
+
+    .compare-top-agent {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .method-card {
+      border: 1px solid rgba(160, 176, 255, 0.22);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(8, 12, 26, 0.65);
+    }
+
+    .method-title {
+      text-align: center;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 8px 6px;
+      background: rgba(134, 168, 255, 0.16);
+    }
+
+    .compare-grid video {
+      height: 260px;
+      object-fit: fill;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      background: #000;
+    }
+
+    .single-block {
+      margin-top: 20px;
+      border: 1px solid rgba(154, 170, 252, 0.24);
+      border-radius: 14px;
+      padding: 16px;
+      background: rgba(10, 15, 30, 0.7);
+    }
+
+    .double-block {
+      margin-top: 20px;
+      border: 1px solid rgba(154, 170, 252, 0.24);
+      border-radius: 14px;
+      padding: 16px;
+      background: rgba(10, 15, 30, 0.7);
+    }
+
+    .double-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .double-head h3 {
+      font-size: 1.1rem;
+    }
+
+    .double-case {
+      display: grid;
+      gap: 12px;
+    }
+
+    .double-video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .double-video-grid video {
+      height: 280px;
+      object-fit: fill;
+    }
+
+    .single-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .single-head h3 {
+      font-size: 1.1rem;
+    }
+
+    .case-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      border: 1px solid rgba(153, 185, 255, 0.45);
+      background: rgba(134, 168, 255, 0.15);
+      color: var(--text);
+      border-radius: 10px;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(134, 168, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .case-index {
+      font-size: 0.9rem;
+      color: var(--muted);
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .pair-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .case-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr 2fr;
+      gap: 8px;
+      border: 1px solid rgba(150, 167, 245, 0.2);
+      border-radius: 12px;
+      padding: 8px;
+      background: rgba(12, 17, 34, 0.72);
+    }
+
+    .panel {
+      border: 1px solid rgba(164, 180, 255, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #080b16;
+    }
+
+    .panel .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #cfd7ff;
+      padding: 7px 8px;
+      background: rgba(126, 240, 214, 0.16);
+      text-align: center;
+    }
+
+    .panel img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .empty-case {
+      color: var(--muted);
+      text-align: center;
+      padding: 14px 8px;
+      border: 1px dashed rgba(153, 172, 255, 0.3);
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1024px) {
+      .compare-top {
+        grid-template-columns: 1fr;
+      }
+      .compare-grid {
+        grid-template-columns: 1fr;
+      }
+      .double-video-grid {
+        grid-template-columns: 1fr;
+      }
+      .case-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1>MetaWorld: Scaling Multi-Agent Video World Model from Single-view Video Data</h1>
+      <div class="sub">
+        <strong>Abstract.</strong> Video world models are a foundational generative technology for embodied AI and the Metaverse, yet existing approaches are inherently limited to a single agent observing from a single perspective. Extending these models to multi-agent settings introduces two critical challenges: <strong>data scarcity</strong> (coordinated multi-view recordings are prohibitively expensive to collect for general open-domain scenarios) and <strong>world state alignment</strong> (independently generated video streams cannot ensure that shared physical environments and events evolve consistently across views). To address these challenges, we propose <strong>MetaWorld</strong>, a novel framework that scales multi-agent video world models to open-domain environments directly from single-view videos. First, we introduce <strong>Monocular World-State Unrolling (MWSU)</strong> to explicitly decompose monocular footage into the camera operator's ego-motion and the visible subject's spatial trajectory. This camera-trajectory decomposition naturally extracts synchronized multi-agent motion data within a shared 3D space, completely bypassing the need for multi-camera setups. Second, for precise visual control, we develop the <strong>Subject-Aware World Generator</strong> to enable appearance-driven simulation conditioned on per-agent identity images. Finally, to ensure both views are grounded in the identical physical reality, we propose <strong>World-State Alignment</strong>, a per-frame inter-branch cross-attention mechanism inserted at every transformer layer of the video DiT. By jointly synchronizing the denoising process, WSA enforces both static geometric consistency and dynamic motion consistency, encouraging that the shared 3D environment and physical events remain well-aligned across both egocentric views. Extensive experiments demonstrate that <strong>MetaWorld</strong> achieves superior cross-view consistency and identity fidelity, establishing a highly scalable, physics-driven paradigm for multi-agent video world modeling.
+      </div>
+    </header>
+
+    <section id="compare">
+      <h2>Compare</h2>
+      <div class="section-note">Two paired scenes with two ego views each. Top: scene and two agents. Bottom: two ego-view rows, each compared across three methods.</div>
+      <div id="compareContainer"></div>
+    </section>
+
+    <section id="double">
+      <h2>Double World Generation</h2>
+      <div class="section-note">Each case shows the scene and two agent identity images, followed by a single row of two generated ego-view videos.</div>
+      <div id="doubleContainer"></div>
+    </section>
+
+    <section id="single">
+      <h2>Single World Generation</h2>
+      <div class="section-note">Each section displays two cases at a time (top and bottom). Use left/right buttons to slide through cases.</div>
+      <div id="singleContainer"></div>
+    </section>
+  </div>
+
+  <script>
+    const compareExamples = [
+      {
+        name: "Example Pair 1-2",
+        sceneTrajectory: "compare/1&2.png",
+        agents: [
+          { image: "compare/1.png", label: "Agent 1" },
+          { image: "compare/2.png", label: "Agent 2" }
+        ],
+        views: [
+          {
+            title: "Agent 1 EgoView",
+            videos: {
+              versecrafter: "compare/verse-2.mp4",
+              multiworld: "compare/multworld-2.mp4",
+              metaworld: "compare/ours-2.mp4"
+            }
+          },
+          {
+            title: "Agent 2 EgoView",
+            videos: {
+              versecrafter: "compare/verse-1.mp4",
+              multiworld: "compare/multi-world-1.mp4",
+              metaworld: "compare/ours-1.mp4"
+            }
+          }
+        ]
+      },
+      {
+        name: "Example Pair 3-4",
+        sceneTrajectory: "compare/3&4.png",
+        agents: [
+          { image: "compare/3.png", label: "Agent 3" },
+          { image: "compare/4.png", label: "Agent 4" }
+        ],
+        views: [
+          {
+            title: "Agent 3 EgoView",
+            videos: {
+              versecrafter: "compare/verse-4.mp4",
+              multiworld: "compare/multiworld-4.mp4",
+              metaworld: "compare/ours-4.mp4"
+            }
+          },
+          {
+            title: "Agent 4 EgoView",
+            videos: {
+              versecrafter: "compare/verse-3.mp4",
+              multiworld: "compare/multiworld-3.mp4",
+              metaworld: "compare/ours-3.mp4"
+            }
+          }
+        ]
+      }
+    ];
+
+    const singleSets = [
+      {
+        id: "full",
+        title: "Full-3D Scene",
+        basePath: "single/full",
+        cases: [
+          "pair001_4xSPW34J1iA_0018505_0020305_seg006",
+          "pair002_EYmGxAC3CVQ_0108404_0110204_seg000",
+          "pair005_n_hx_rQQ6sw_0124287_0126087_seg003",
+          "pair007_4xSPW34J1iA_0043705_0045505_seg007",
+          "pair011_f8ekeJP-_5s_0021750_0023550_seg006",
+          "pair014_4xSPW34J1iA_0083305_0085105_seg007"
+        ]
+      },
+      {
+        id: "partial",
+        title: "Partial 3D-Scene",
+        basePath: "single/partial",
+        cases: [
+          "pair000_3frkT40jjS8_0035855_0037655_seg010",
+          "pair003_3frkT40jjS8_0037655_0039455_seg001",
+          "pair012_5781BU3KFxQ_0036150_0037950_seg003",
+          "pair016_3frkT40jjS8_0041255_0043055_seg004",
+          "pair019_3frkT40jjS8_0043055_0044855_seg000",
+          "pair023_5781BU3KFxQ_0037950_0039750_seg002",
+          "pair028_1H_gw_DNHX8_0016350_0018150_seg003",
+          "pair033_5781BU3KFxQ_0039750_0041550_seg004"
+        ]
+      }
+    ];
+
+    const doubleCases = [
+      { id: "1", scene: "double/1&2.png", agent1: "double/1-a.png", agent2: "double/1-b.png", video1: "double/1-b.mp4", video2: "double/1-a.mp4" },
+      { id: "2", scene: "double/1&2.png", agent1: "double/2-a.png", agent2: "double/2-b.png", video1: "double/2-b.mp4", video2: "double/2-a.mp4" },
+      { id: "3", scene: "double/3&4.png", agent1: "double/3-a.png", agent2: "double/3-b.png", video1: "double/3-b.mp4", video2: "double/3-a.mp4" },
+      { id: "4", scene: "double/3&4.png", agent1: "double/4-a.png", agent2: "double/4-b.png", video1: "double/4-b.mp4", video2: "double/4-a.mp4" },
+      { id: "5", scene: "double/5&6&7.png", agent1: "double/5-a.png", agent2: "double/5-b.png", video1: "double/5-b.mp4", video2: "double/5-a.mp4" },
+      { id: "6", scene: "double/5&6&7.png", agent1: "double/6-a.png", agent2: "double/6-b.png", video1: "double/6-b.mp4", video2: "double/6-a.mp4" },
+      { id: "8", scene: "double/8.png", agent1: "double/8-a.png", agent2: "double/8-b.png", video1: "double/8-b.mp4", video2: "double/8-a.mp4" }
+    ];
+
+    function createVideo(src) {
+      const video = document.createElement("video");
+      video.src = src;
+      video.controls = true;
+      video.loop = true;
+      video.muted = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      return video;
+    }
+
+    function syncAgentStackHeight(sceneCard, agentStack) {
+      const sync = () => {
+        if (window.innerWidth <= 1024) {
+          agentStack.style.height = "";
+          return;
+        }
+        agentStack.style.height = `${sceneCard.offsetHeight}px`;
+      };
+
+      requestAnimationFrame(sync);
+      window.addEventListener("resize", sync);
+      sceneCard.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("load", sync, { once: true });
+      });
+    }
+
+    function normalizeRowDurations(grid) {
+      const videos = Array.from(grid.querySelectorAll("video"));
+      if (!videos.length) return;
+
+      const applyRates = () => {
+        const durations = videos.map((v) => v.duration);
+        const allReady = durations.every((d) => Number.isFinite(d) && d > 0);
+        if (!allReady) return;
+
+        // Prefer "MetaWorld (Ours)" as timing reference when there are 3 videos;
+        // for 2-video double cases, use the longer duration as the shared target.
+        const fallback = Math.max(...durations);
+        const targetDuration = Number.isFinite(videos[2]?.duration) && videos[2].duration > 0
+          ? videos[2].duration
+          : fallback;
+
+        videos.forEach((video) => {
+          const rate = video.duration / targetDuration;
+          // Keep browser-supported speed range.
+          video.playbackRate = Math.min(4, Math.max(0.25, rate));
+        });
+      };
+
+      videos.forEach((video) => {
+        video.addEventListener("loadedmetadata", applyRates);
+      });
+      applyRates();
+    }
+
+    function renderCompare() {
+      const container = document.getElementById("compareContainer");
+      compareExamples.forEach((compareExample) => {
+        const groupWrap = document.createElement("div");
+        groupWrap.className = "compare-group";
+
+        const title = document.createElement("h3");
+        title.textContent = compareExample.name;
+        groupWrap.appendChild(title);
+
+        const top = document.createElement("div");
+        top.className = "compare-top";
+
+        const sceneCard = document.createElement("div");
+        sceneCard.className = "compare-top-card compare-top-main";
+        sceneCard.innerHTML = '<div class="method-title">Scene & Trajectory</div>';
+        const sceneImg = document.createElement("img");
+        sceneImg.src = compareExample.sceneTrajectory;
+        sceneImg.alt = "Scene and trajectory";
+        sceneCard.appendChild(sceneImg);
+        top.appendChild(sceneCard);
+
+        const agentStack = document.createElement("div");
+        agentStack.className = "compare-top-stack";
+        compareExample.agents.forEach((agent) => {
+          const agentCard = document.createElement("div");
+          agentCard.className = "compare-top-card compare-top-agent";
+          const agentImg = document.createElement("img");
+          agentImg.src = agent.image;
+          agentImg.alt = `${agent.label} image`;
+          const agentCaption = document.createElement("div");
+          agentCaption.className = "compare-img-caption";
+          agentCaption.textContent = agent.label;
+          agentCard.appendChild(agentCaption);
+          agentCard.appendChild(agentImg);
+          agentStack.appendChild(agentCard);
+        });
+        top.appendChild(agentStack);
+        groupWrap.appendChild(top);
+        syncAgentStackHeight(sceneCard, agentStack);
+
+        compareExample.views.forEach((view) => {
+          const viewWrap = document.createElement("div");
+          viewWrap.className = "compare-view";
+
+          const viewTitle = document.createElement("div");
+          viewTitle.className = "compare-view-title";
+          viewTitle.textContent = view.title;
+          viewWrap.appendChild(viewTitle);
+
+          const grid = document.createElement("div");
+          grid.className = "compare-grid";
+
+          [
+            ["VerseCrafter", view.videos.versecrafter],
+            ["MultiWorld", view.videos.multiworld],
+            ["MetaWorld (Ours)", view.videos.metaworld]
+          ].forEach(([method, src]) => {
+            const card = document.createElement("div");
+            card.className = "method-card";
+
+            const label = document.createElement("div");
+            label.className = "method-title";
+            label.textContent = method;
+            card.appendChild(label);
+            card.appendChild(createVideo(src));
+
+            grid.appendChild(card);
+          });
+
+          normalizeRowDurations(grid);
+          viewWrap.appendChild(grid);
+          groupWrap.appendChild(viewWrap);
+        });
+
+        container.appendChild(groupWrap);
+      });
+    }
+
+    function createDoubleTop(caseData) {
+      const top = document.createElement("div");
+      top.className = "compare-top";
+
+      const sceneCard = document.createElement("div");
+      sceneCard.className = "compare-top-card compare-top-main";
+      sceneCard.innerHTML = '<div class="method-title">Scene & Trajectory</div>';
+      const sceneImg = document.createElement("img");
+      sceneImg.src = caseData.scene;
+      sceneImg.alt = `Double case ${caseData.id} scene and trajectory`;
+      sceneCard.appendChild(sceneImg);
+      top.appendChild(sceneCard);
+
+      const agentStack = document.createElement("div");
+      agentStack.className = "compare-top-stack";
+      [
+        { image: caseData.agent1, label: "Agent 1" },
+        { image: caseData.agent2, label: "Agent 2" }
+      ].forEach((agent) => {
+        const agentCard = document.createElement("div");
+        agentCard.className = "compare-top-card compare-top-agent";
+        const agentCaption = document.createElement("div");
+        agentCaption.className = "compare-img-caption";
+        agentCaption.textContent = agent.label;
+        const agentImg = document.createElement("img");
+        agentImg.src = agent.image;
+        agentImg.alt = `${agent.label} image for double case ${caseData.id}`;
+        agentCard.appendChild(agentCaption);
+        agentCard.appendChild(agentImg);
+        agentStack.appendChild(agentCard);
+      });
+
+      top.appendChild(agentStack);
+      syncAgentStackHeight(sceneCard, agentStack);
+      return top;
+    }
+
+    function createDoubleCase(caseData) {
+      const caseWrap = document.createElement("div");
+      caseWrap.className = "double-case";
+      caseWrap.appendChild(createDoubleTop(caseData));
+
+      const videoGrid = document.createElement("div");
+      videoGrid.className = "double-video-grid";
+      [
+        ["Agent 1 EgoView", caseData.video1],
+        ["Agent 2 EgoView", caseData.video2]
+      ].forEach(([labelText, src]) => {
+        const card = document.createElement("div");
+        card.className = "method-card";
+        const label = document.createElement("div");
+        label.className = "method-title";
+        label.textContent = labelText;
+        card.appendChild(label);
+        card.appendChild(createVideo(src));
+        videoGrid.appendChild(card);
+      });
+
+      normalizeRowDurations(videoGrid);
+      caseWrap.appendChild(videoGrid);
+      return caseWrap;
+    }
+
+    function renderDouble() {
+      const container = document.getElementById("doubleContainer");
+      const block = document.createElement("div");
+      block.className = "double-block";
+
+      const head = document.createElement("div");
+      head.className = "double-head";
+      const title = document.createElement("h3");
+      title.textContent = "Case 1";
+      head.appendChild(title);
+
+      const nav = document.createElement("div");
+      nav.className = "case-nav";
+      nav.innerHTML = `
+        <button class="nav-btn" data-dir="-1">&#8592;</button>
+        <div class="case-index">Case 1 / ${doubleCases.length}</div>
+        <button class="nav-btn" data-dir="1">&#8594;</button>
+      `;
+      head.appendChild(nav);
+      block.appendChild(head);
+
+      const content = document.createElement("div");
+      block.appendChild(content);
+
+      let index = 0;
+      const indexEl = nav.querySelector(".case-index");
+
+      function repaint() {
+        const caseData = doubleCases[index];
+        title.textContent = `Case ${caseData.id}`;
+        indexEl.textContent = `Case ${index + 1} / ${doubleCases.length}`;
+        content.innerHTML = "";
+        content.appendChild(createDoubleCase(caseData));
+      }
+
+      nav.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const dir = Number(btn.dataset.dir);
+          index = (index + dir + doubleCases.length) % doubleCases.length;
+          repaint();
+        });
+      });
+
+      repaint();
+      container.appendChild(block);
+    }
+
+    function createSingleRow(basePath, caseId) {
+      const row = document.createElement("div");
+      row.className = "case-row";
+
+      const refPanel = document.createElement("div");
+      refPanel.className = "panel";
+      refPanel.innerHTML = '<div class="label">Ref Image</div>';
+      const ref = document.createElement("img");
+      ref.src = `${basePath}/${caseId}_ref.png`;
+      ref.alt = `${caseId} ref image`;
+      refPanel.appendChild(ref);
+
+      const condPanel = document.createElement("div");
+      condPanel.className = "panel";
+      condPanel.innerHTML = '<div class="label">Cond Video</div>';
+      condPanel.appendChild(createVideo(`${basePath}/${caseId}_cond.mp4`));
+
+      const genPanel = document.createElement("div");
+      genPanel.className = "panel";
+      genPanel.innerHTML = '<div class="label">Generated Video</div>';
+      genPanel.appendChild(createVideo(`${basePath}/${caseId}_generated.mp4`));
+
+      row.appendChild(refPanel);
+      row.appendChild(condPanel);
+      row.appendChild(genPanel);
+      return row;
+    }
+
+    function renderSingleSection(sectionData) {
+      const block = document.createElement("div");
+      block.className = "single-block";
+      block.id = `single-${sectionData.id}`;
+
+      const head = document.createElement("div");
+      head.className = "single-head";
+
+      const title = document.createElement("h3");
+      title.textContent = sectionData.title;
+      head.appendChild(title);
+
+      const nav = document.createElement("div");
+      nav.className = "case-nav";
+      nav.innerHTML = `
+        <button class="nav-btn" data-dir="-1">&#8592;</button>
+        <div class="case-index">Case 1-${Math.min(2, sectionData.cases.length)} / ${sectionData.cases.length}</div>
+        <button class="nav-btn" data-dir="1">&#8594;</button>
+      `;
+      head.appendChild(nav);
+      block.appendChild(head);
+
+      const stack = document.createElement("div");
+      stack.className = "pair-stack";
+      block.appendChild(stack);
+
+      let start = 0;
+      const indexEl = nav.querySelector(".case-index");
+
+      function repaint() {
+        stack.innerHTML = "";
+        const top = sectionData.cases[start];
+        const bottom = sectionData.cases[start + 1];
+
+        if (top) stack.appendChild(createSingleRow(sectionData.basePath, top));
+        if (bottom) stack.appendChild(createSingleRow(sectionData.basePath, bottom));
+        if (!top && !bottom) {
+          const empty = document.createElement("div");
+          empty.className = "empty-case";
+          empty.textContent = "No case available.";
+          stack.appendChild(empty);
+        }
+
+        const left = start + 1;
+        const right = Math.min(start + 2, sectionData.cases.length);
+        indexEl.textContent = `Case ${left}-${right} / ${sectionData.cases.length}`;
+      }
+
+      nav.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const dir = Number(btn.dataset.dir);
+          const step = 2;
+          const total = sectionData.cases.length;
+          const maxStart = Math.max(0, Math.floor((total - 1) / step) * step);
+          start += dir * step;
+          if (start < 0) start = maxStart;
+          if (start > maxStart) start = 0;
+          repaint();
+        });
+      });
+
+      repaint();
+      return block;
+    }
+
+    function renderSingle() {
+      const container = document.getElementById("singleContainer");
+      singleSets.forEach((set) => container.appendChild(renderSingleSection(set)));
+    }
+
+    renderCompare();
+    renderDouble();
+    renderSingle();
+  </script>
+</body>
+</html>
