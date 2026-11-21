@@ -126,7 +126,7 @@ function makeCard(item, group, comparison = false) {
   detail.className = "case-domain";
   detail.textContent = comparison ? `${item.duration.toFixed(2)} s` : item.domainLabel;
   caption.append(title);
-  if (group !== "results-grid" || item.domain === "game" || item.domain === "simulation") caption.append(detail);
+  if (group !== "results-grid" || item.domain === "game") caption.append(detail);
   if (group === "results-grid" && item.caption) {
     const description = document.createElement("p");
     description.className = "case-description";
@@ -170,8 +170,7 @@ const collections = [
   {key: "games", label: "Games", lead: "X036", filters: [
     ["game", "Other games"], ["it_takes_two", "It Takes Two"], ["counter_strike", "Counter-Strike"],
     ["gta", "GTA V"], ["minecraft", "Minecraft"]
-  ]},
-  {key: "simulation", label: "Simulation", lead: "G007"}
+  ]}
 ];
 const resultGrid = document.querySelector("#results-grid");
 const resultFilter = document.querySelector("#result-filter");
@@ -188,16 +187,22 @@ for (const [key, filter] of sceneFilters) {
   if (count) resultFilter.add(new Option(`${filter.label} (${count})`, key));
 }
 
-for (const collection of collections) {
-  const items = [];
+const rankedCollections = collections.map(collection => {
   const filters = collection.filters || [[collection.key, collection.label]];
+  const buckets = filters.map(([key, label]) => ({
+    key, label, matching: mainSamples.filter(item => filterGroup(item) === key)
+  })).sort((a, b) => b.matching.length - a.matching.length);
+  return {...collection, buckets, total: buckets.reduce((sum, bucket) => sum + bucket.matching.length, 0)};
+}).sort((a, b) => b.total - a.total);
+
+for (const collection of rankedCollections) {
+  const items = [];
   let options = resultFilter;
   if (collection.filters) {
     options = document.createElement("optgroup");
     options.label = collection.label;
   }
-  for (const [key, label] of filters) {
-    const matching = mainSamples.filter(item => filterGroup(item) === key);
+  for (const {key, label, matching} of collection.buckets) {
     if (!matching.length) continue;
     const leadIndex = matching.findIndex(item => item.key === collection.lead);
     if (leadIndex > 0) matching.unshift(matching.splice(leadIndex, 1)[0]);
@@ -235,14 +240,15 @@ for (const collection of collections) {
   number.textContent = items.length;
   link.append(number);
   collectionIndex.append(link);
-  galleryGroups.push({section, heading, count, cards, link, label: collection.label});
+  galleryGroups.push({section, heading, count, cards, link, label: collection.label, total: items.length});
 }
 
 function applyGalleryFilter() {
   const all = resultFilter.value === "all";
   const sceneFilter = sceneFilters.get(resultFilter.value);
   collectionNav.hidden = !(all || sceneFilter);
-  for (const {section, heading, count, cards, label, link} of galleryGroups) {
+  for (const group of galleryGroups) {
+    const {section, heading, count, cards, label, link} = group;
     let visible = 0;
     for (const card of cards) {
       card.hidden = sceneFilter ? !sceneFilter.matches(byKey.get(card.dataset.sample)) : !all && card.dataset.domain !== resultFilter.value;
@@ -250,12 +256,18 @@ function applyGalleryFilter() {
       if (card.hidden) pauseAutomatically(card.querySelector("video"));
       else visible++;
     }
+    group.visible = visible;
     section.hidden = visible === 0;
     link.hidden = visible === 0;
     link.querySelector("span").textContent = visible;
     heading.textContent = all || sceneFilter ? label : resultFilter.selectedOptions[0].dataset.label;
     count.textContent = `${visible} ${visible === 1 ? "scene" : "scenes"}`;
   }
+  galleryGroups.sort((a, b) => b.visible - a.visible || b.total - a.total);
+  galleryGroups.forEach(({section, link}, index) => {
+    if (resultGrid.children[index] !== section) resultGrid.insertBefore(section, resultGrid.children[index]);
+    if (collectionIndex.children[index] !== link) collectionIndex.insertBefore(link, collectionIndex.children[index]);
+  });
 }
 
 function updateCurrentCollection() {
@@ -297,7 +309,7 @@ for (const option of resultFilter.options) {
   if (sceneFilters.get(option.value)?.param === motionParam) resultFilter.value = option.value;
 }
 applyGalleryFilter();
-if (location.hash === "#more-worlds") {
+if (["#more-worlds", "#collection-simulation"].includes(location.hash)) {
   const games = document.querySelector("#collection-games");
   if (games) {
     history.replaceState(null, "", "#collection-games");

@@ -26,20 +26,23 @@ details{margin-top:11px;color:#b4c9c5;font-size:.9rem}summary{cursor:pointer;wid
 <div class="copy"><div class="scene-head"><h2 id="scene-title"></h2><div class="transport"><button type="button" id="prev" aria-label="上一条">←</button><button type="button" id="next" aria-label="下一条">→</button></div></div><p id="event"></p><details><summary>查看左右视角和实际推理提示词</summary><p id="roles" lang="en"></p><p id="credit" lang="en"></p><pre id="prompt" lang="en"></pre></details></div></section>
 <div class="toolbar"><label>筛选场景 <select id="category"><option value="all">全部</option></select></label><output id="count" aria-live="polite"></output></div>
 <nav id="collection" aria-label="选择一条双视角成片"></nav><footer class="links"><a href="encore-demos.html">最新移动视角演示</a><a href="new-demos.html">上一轮提示词修订示例</a></footer></main>
-<script src="media.js?v=20261121f"></script>
-<script src="action-scenes.js?v=20261121f"></script>
+<script src="media.js?v=20261121g"></script>
+<script src="action-scenes.js?v=20261121g"></script>
 <script>
 "use strict";
 const media=new Map(MEDIA.map(c=>[c.key,c]));
 const scenes=ACTION_SCENES.map(c=>({...media.get(c.id),...c}));
 const lookup=new Map(scenes.map(c=>[c.id,c]));
 const $=id=>document.getElementById(id);
-const categories=new Map([["game","游戏"],["human","真人风格"],["robot","机器人"],["human_robot","人机协作"],["simulation","仿真"]]);
+const categories=new Map([["game","游戏"],["human","真人风格"],["robot","机器人"],["human_robot","人机协作"]]);
 const options=$("category");
 const topics=new Map([["racing","赛车与驾驶"],["mechanisms","机甲与机关"],["air_water","空中与水上"],["sports","运动与表演"],["cooperation","协作与运输"]]);
 function addOptions(label,table,column){
  const group=document.createElement("optgroup");group.label=label;
- for(const [key,name] of table){if(scenes.some(c=>c[column]===key))group.append(new Option(name,key))}
+ const counts=new Map();
+ for(const scene of scenes)counts.set(scene[column],(counts.get(scene[column])||0)+1);
+ const entries=[...table].filter(([key])=>counts.has(key)).sort(([a],[b])=>counts.get(b)-counts.get(a));
+ for(const [key,name] of entries)group.append(new Option(name,key));
  if(group.children.length)options.append(group);
 }
 addOptions("按动作",topics,"topic");addOptions("按场景",categories,"domain");
