@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CoWorld · 移动视角与双人互动</title>
+<style>
+:root{color-scheme:dark;font:16px/1.55 "Inter",-apple-system,"PingFang SC",system-ui,sans-serif;background:#101417;color:#e9efee}
+*{box-sizing:border-box}body{margin:0}main{max-width:1280px;margin:auto;padding:clamp(20px,4vw,54px) clamp(15px,4vw,52px) 4rem}
+header,.toolbar,.links{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}header{margin-bottom:1.45rem}
+h1,h2,h3,p{margin:0}h1{font-size:clamp(1.25rem,3.2vw,2.55rem);line-height:1.15;letter-spacing:-.045em;font-weight:620}
+a{color:inherit;text-underline-offset:.2em}header a{font-size:.88rem;color:#c2ccce}.viewer{background:#191f23;border:1px solid #343d41;border-radius:12px;overflow:hidden}
+video{width:100%;height:auto;aspect-ratio:1920/544;display:block;background:#080a0a;object-fit:contain}
+.copy{padding:clamp(13px,2.5vw,25px)}h2{font-size:clamp(1.15rem,2.1vw,1.62rem);line-height:1.3}.transport{display:flex;align-items:center;gap:7px}.transport button{color:#dbe8e5;background:transparent;border:1px solid #465453;cursor:pointer;padding:3px 11px;border-radius:5px;font:inherit}.transport button:hover{background:#2b3839}.scene-head{display:flex;align-items:start;justify-content:space-between;gap:12px}.copy p{padding-top:7px;max-width:79ch;color:#c5cece}
+details{margin-top:11px;color:#b4c9c5;font-size:.9rem}summary{cursor:pointer;width:fit-content}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;font-size:.92rem;color:#c6d3d1;padding:12px 0 0;border-top:1px solid #384347}
+.toolbar{margin:28px 0 14px}label{display:inline-flex;align-items:center;gap:10px;font-size:.9rem;color:#cad0d0}select{border:1px solid #485356;border-radius:5px;padding:6px 9px;background:#1d272b;color:#f3f8f8}output{font-variant-numeric:tabular-nums;color:#9baaaa;font-size:.85rem}
+#collection{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px}
+.tile{display:block;min-width:0;color:#c6cece;font-weight:500;text-decoration:none;line-height:1.42}.tile img{width:100%;display:block;aspect-ratio:1920/544;object-fit:contain;border-radius:5px;background:#20282c}.tile span{display:block;margin-top:7px;font-size:.9rem}
+.tile[aria-current=true]{color:#b2efd8}.tile[aria-current=true] img{outline:2px solid #91d2bd;outline-offset:2px}a:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #c7f5e4;outline-offset:3px}
+.links{margin-top:30px;color:#9cabad;font-size:.85rem;justify-content:flex-start}
+@media(max-width:780px){#collection{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){#collection{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 10px}.toolbar{margin-top:19px}.copy p{font-size:.91rem}.tile span{font-size:.82rem}}
+</style>
+</head>
+<body><main><header><h1>移动视角与双人互动</h1><a href="index.html#results">CoWorld 项目页 ↗</a></header>
+<section class="viewer" aria-labelledby="scene-title"><video id="film" controls playsinline muted loop preload="metadata"></video>
+<div class="copy"><div class="scene-head"><h2 id="scene-title"></h2><div class="transport"><button type="button" id="prev" aria-label="上一条">←</button><button type="button" id="next" aria-label="下一条">→</button></div></div><p id="event"></p><details><summary>查看左右视角和实际推理提示词</summary><p id="roles" lang="en"></p><p id="credit" lang="en"></p><pre id="prompt" lang="en"></pre></details></div></section>
+<div class="toolbar"><label>筛选场景 <select id="category"><option value="all">全部</option></select></label><output id="count" aria-live="polite"></output></div>
+<nav id="collection" aria-label="选择一条双视角成片"></nav><footer class="links"><a href="action-demos.html">上一批动作演示</a></footer></main>
+<script src="media.js?v=20261121e"></script>
+<script src="encore-scenes.js?v=20261121e"></script>
+<script>
+"use strict";
+const media=new Map(MEDIA.map(c=>[c.key,c]));
+const scenes=ACTION_SCENES.map(c=>({...media.get(c.id),...c}));
+const lookup=new Map(scenes.map(c=>[c.id,c]));
+const $=id=>document.getElementById(id);
+const categories=new Map([["game","游戏"],["human","真人风格"],["robot","机器人"],["human_robot","人机协作"],["simulation","仿真"]]);
+const options=$("category");
+const topics=new Map([["paths","交错与穿越"],["transfer","接力与交接"],["mechanism","机关与机械"],["performance","舞台与表演"],["ball","球场攻防"],["water_air","空中与水上"]]);
+function addOptions(label,table,column){
+ const group=document.createElement("optgroup");group.label=label;
+ for(const [key,name] of table){if(scenes.some(c=>c[column]===key))group.append(new Option(name,key))}
+ if(group.children.length)options.append(group);
+}
+addOptions("按动作",topics,"topic");addOptions("按场景",categories,"domain");
+if(scenes.some(c=>c.bothMove))options.add(new Option("双方独立移动","moving"));
+function matches(c){return options.value==="all"||(options.value==="moving"?c.bothMove:options.value===c.domain||options.value===c.topic)}
+function tiles(){
+  const chosen=scenes.filter(matches);const fragment=document.createDocumentFragment();
+  for(const c of chosen){
+    const a=document.createElement("a");a.className="tile";a.href="#"+c.id;a.dataset.id=c.id;
+    const img=new Image();img.loading="lazy";img.src=c.poster;img.alt="";
+    const name=document.createElement("span");name.textContent=c.zh;a.append(img,name);fragment.append(a);
+  }
+  $("collection").replaceChildren(fragment);$("count").textContent=chosen.length+" 条成片";
+}
+const film=$("film");let active;
+function openScene(id,resume){
+ const c=lookup.get(id)||scenes[0];if(!c)return;
+ if(!matches(c)){options.value="all";tiles()}
+ if(c.id!==active){
+  active=c.id;film.poster=c.poster;film.src=c.video;film.setAttribute("aria-label",c.zh);film.load();
+  $("scene-title").textContent=c.zh;$("event").textContent=c.observed;
+  $("roles").textContent="Left · "+c.roleA+" / Right · "+c.roleB;
+  $("credit").textContent=(c.cameraRegime==="third_person"?"Native third-person game cameras · ":"")+c.sourceCredit;
+  if(c.sourceUrl){
+    const link=document.createElement("a");const source=new URL(c.sourceUrl);
+    if(Number.isFinite(c.sourceTimestamp)&&["youtube.com","www.youtube.com","youtu.be"].includes(source.hostname))source.searchParams.set("t",Math.floor(c.sourceTimestamp)+"s");
+    link.href=source.href;link.textContent="Source recording ↗";$("credit").append(" · ",link);
+  }
+  $("prompt").textContent=c.videoPrompt;document.querySelector("details").open=false;
+  if(resume)film.play().catch(()=>{});
+ }
+ for(const tile of document.querySelectorAll(".tile"))tile.setAttribute("aria-current",String(tile.dataset.id===c.id));
+}
+function pick(id){
+ if(location.hash!=="#"+id)history.pushState(null,"","#"+id);
+ openScene(id,true);film.play().catch(()=>{});document.querySelector(".viewer").scrollIntoView({block:"start"});
+}
+$("collection").addEventListener("click",event=>{
+ const tile=event.target.closest(".tile");
+ if(tile&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey&&!event.altKey&&event.button===0){event.preventDefault();pick(tile.dataset.id)}
+});
+function step(by){const items=scenes.filter(matches);const i=items.findIndex(c=>c.id===active);pick(items[(i+by+items.length)%items.length].id)}
+$("prev").addEventListener("click",()=>step(-1));$("next").addEventListener("click",()=>step(1));
+options.addEventListener("change",()=>{tiles();const first=scenes.find(matches);if(!matches(lookup.get(active))){history.replaceState(null,"","#"+first.id);openScene(first.id,false)}else openScene(active,false)});
+window.addEventListener("hashchange",()=>openScene(location.hash.slice(1),!film.paused));
+tiles();openScene(location.hash.slice(1),false);
+</script></body></html>

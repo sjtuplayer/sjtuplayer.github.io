@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CoWorld · 双视角演示</title>
+<style>
+:root{color-scheme:dark;color:#f3f1eb;background:#101216;font-family:"Avenir Next",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}main{max-width:1248px;margin:auto;padding:clamp(20px,4.5vw,64px) clamp(16px,4.5vw,56px) 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:clamp(18px,3vw,32px)}
+h1,h2,p{margin:0}h1{font-size:clamp(20px,3vw,35px);line-height:1.2;letter-spacing:-.035em}h2{font-size:clamp(18px,2.1vw,25px);line-height:1.4}
+header a{color:#afb5bd;font-size:.86rem;text-decoration:none;white-space:nowrap}header a:hover{color:#d5f2ac}
+video{display:block;width:100%;aspect-ratio:1920/544;object-fit:contain;background:#070809;border-radius:9px}
+.description{padding:16px 0 20px}.description p{color:#bcc2c9;margin-top:6px;line-height:1.7;font-size:clamp(.9rem,1.5vw,1rem)}
+nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(7px,1.5vw,16px);border-top:1px solid #393d41;padding-top:17px}
+nav a{display:block;color:#c2c6ca;text-decoration:none;min-width:0;font-size:.9rem}
+nav img{display:block;width:100%;height:auto;aspect-ratio:1920/544;object-fit:contain;border-radius:4px;outline:2px solid transparent;outline-offset:2px}
+nav span{display:block;padding:8px 0 0}nav a[aria-current="true"]{color:#d5f2ac;font-weight:600}
+nav a[aria-current="true"] img{outline-color:#bde68f}a:focus-visible,video:focus-visible{outline:2px solid #d5f2ac;outline-offset:4px}
+@media(max-width:640px){nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}main{padding-top:24px}nav span{padding-top:4px}}
+</style>
+<main><header><h1>CoWorld · 上一轮提示词修订</h1><div><a href="encore-demos.html">最新动作演示 ↗</a>　<a href="index.html#results">项目页 ↗</a></div></header>
+<section aria-label="双视角播放器"><article data-case="DC04">
+      <video controls playsinline muted loop preload="none" poster="assets/images/DC04-s02-poster.jpg" src="assets/videos/DC04-s02.mp4" aria-label="集市拔河双视角完整版"></video>
+      <div class="description"><h2>集市拔河</h2><p>左边的房车逐渐变大，右边的围栏逐渐变小。穿青衣的人向后退，把穿紫衣的人拉向房车。</p></div>
+    </article>
+<article data-case="DH11">
+      <video controls playsinline muted loop preload="none" poster="assets/images/DH11-s03-poster.jpg" src="assets/videos/DH11-s03.mp4" aria-label="双人踩格舞双视角完整版"></video>
+      <div class="description"><h2>双人踩格舞</h2><p>近处的鞋在左边是白色，在右边是红色。两位舞者一起迈上黄格，另一只脚跟上，随后依次退回。</p></div>
+    </article>
+<article data-case="DG07">
+      <video controls playsinline muted loop preload="none" poster="assets/images/DG07-s01-poster.jpg" src="assets/videos/DG07-s01.mp4" aria-label="巨球传接双视角完整版"></video>
+      <div class="description"><h2>巨球传接</h2><p>藏蓝色球员送出绿球，球在左边变小，在右边变大。红衣守门员接住并抬起球，两侧都能看到接球结果。</p></div>
+    </article>
+</section>
+<nav aria-label="选择演示"><a href="#DC04" data-select="DC04"><img src="assets/images/DC04-s02-poster.jpg" width="288" height="82" alt=""><span>集市拔河</span></a>
+<a href="#DH11" data-select="DH11"><img src="assets/images/DH11-s03-poster.jpg" width="288" height="82" alt=""><span>双人踩格舞</span></a>
+<a href="#DG07" data-select="DG07"><img src="assets/images/DG07-s01-poster.jpg" width="288" height="82" alt=""><span>巨球传接</span></a>
+</nav></main>
+<script>
+const clips = [...document.querySelectorAll('article[data-case]')];
+const links = [...document.querySelectorAll('nav a')];
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function selectClip(autoplay) {
+  const chosen = clips.find(clip => clip.dataset.case === location.hash.slice(1)) || clips[0];
+  for (const clip of clips) {
+    const video = clip.querySelector('video');
+    clip.hidden = clip !== chosen;
+    if (clip.hidden) video.pause();
+    else {
+      video.preload = 'metadata';
+      if (autoplay && !document.hidden) video.play().catch(() => {});
+    }
+  }
+  for (const link of links) {
+    if (link.dataset.select === chosen.dataset.case) link.setAttribute('aria-current','true');
+    else link.removeAttribute('aria-current');
+  }
+}
+selectClip(!reduceMotion.matches);
+window.addEventListener('hashchange',() => selectClip(!reduceMotion.matches));
+document.addEventListener('visibilitychange',() => {
+  if (document.hidden) for (const clip of clips) clip.querySelector('video').pause();
+});
+</script>
+</html>
