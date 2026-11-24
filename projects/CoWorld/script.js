@@ -140,21 +140,24 @@ function makeCard(item, group, comparison = false) {
 }
 
 
-const mosaicVideos = [...document.querySelectorAll(".hero-mosaic video")];
+const heroVideos = document.querySelectorAll(".cinema-hero video");
 const motionButton = document.querySelector("#hero-motion");
 if (reducedMotion) {
   sectionPaused.add("hero-mosaic");
   motionButton.textContent = "▷ Play motion";
   motionButton.setAttribute("aria-pressed", "true");
 }
-mosaicVideos.forEach(watchVideo);
+heroVideos.forEach(watchVideo);
+document.querySelectorAll("[data-featured-case]").forEach(button => {
+  button.addEventListener("click", () => openViewer(byKey.get(button.dataset.featuredCase)));
+});
 motionButton.addEventListener("click", () => {
   const paused = !sectionPaused.has("hero-mosaic");
   if (paused) sectionPaused.add("hero-mosaic");
   else sectionPaused.delete("hero-mosaic");
   motionButton.textContent = paused ? "▷ Play motion" : "Ⅱ Pause motion";
   motionButton.setAttribute("aria-pressed", String(paused));
-  mosaicVideos.forEach(video => {
+  heroVideos.forEach(video => {
     if (paused) pauseAutomatically(video);
     else if (videoStates.get(video).visible) {
       ensureSource(video);
@@ -164,10 +167,10 @@ motionButton.addEventListener("click", () => {
 });
 
 const collections = [
-  {key: "human", label: "Human–human", lead: "SH03"},
+  {key: "human", label: "Human–human", lead: "EN07"},
   {key: "human_robot", label: "Human–robot", lead: "M013"},
   {key: "robot", label: "Robot–robot", lead: "R011"},
-  {key: "games", label: "Games", lead: "X036", filters: [
+  {key: "games", label: "Games", lead: "ER09", filters: [
     ["game", "Other games"], ["it_takes_two", "It Takes Two"], ["counter_strike", "Counter-Strike"],
     ["gta", "GTA V"], ["minecraft", "Minecraft"]
   ]}
@@ -204,14 +207,14 @@ for (const collection of rankedCollections) {
   }
   for (const {key, label, matching} of collection.buckets) {
     if (!matching.length) continue;
-    const leadIndex = matching.findIndex(item => item.key === collection.lead);
-    if (leadIndex > 0) matching.unshift(matching.splice(leadIndex, 1)[0]);
     items.push(...matching);
     const option = new Option(`${label} (${matching.length})`, key);
     option.dataset.label = label;
     options.append(option);
   }
   if (!items.length) continue;
+  const leadIndex = items.findIndex(item => item.key === collection.lead);
+  if (leadIndex > 0) items.unshift(items.splice(leadIndex, 1)[0]);
   if (options !== resultFilter) resultFilter.append(options);
 
   const section = document.createElement("section");

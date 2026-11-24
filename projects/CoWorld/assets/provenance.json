@@ -3754,16 +3754,24 @@
     }
   ],
   "hero_presentation": {
-    "purpose": "Lightweight title mosaic",
+    "purpose": "Lightweight title mosaic and featured paired videos",
     "encoding": "720-pixel-wide H.264, 15 fps, CRF 27, silent",
     "assets": [
       {
-        "id": "X002",
-        "asset": "assets/hero/X002.mp4",
-        "source_sha256": "f19e6e2542aabba957b4da0e1611994cba9cedea90ab321d876c001159120b67",
-        "web_sha256": "c49dda879d7cc6629d881c3d020433f909991ff3e226f10abdec10c8c6e179af",
-        "poster": "assets/images/X002-poster.jpg",
-        "bytes": 263411
+        "id": "ER09",
+        "asset": "assets/hero/ER09.mp4",
+        "source_sha256": "ce63ae05e3be03ad9b587d1dda664a40d9ff188a94b1375a6a0af0b04751427f",
+        "web_sha256": "f27cf9d581a27cf6754bc80d25967f0178c25747112beab6387e587ca5121ec7",
+        "poster": "assets/images/ER09-r01-poster.jpg",
+        "bytes": 416882
+      },
+      {
+        "id": "EN07",
+        "asset": "assets/hero/EN07.mp4",
+        "source_sha256": "e8afafa3d8a96a1ad4daf47a2acdce843b5aaf05b846ec13566738fa00abd9f7",
+        "web_sha256": "0f121a3ec86cfcdf30bb9faf9a158c33677f39d575c43af5705a925b25b195c3",
+        "poster": "assets/images/EN07-r01-poster.jpg",
+        "bytes": 529493
       },
       {
         "id": "H002",
@@ -3796,14 +3804,6 @@
         "web_sha256": "af5610e23181f1e22c57f864906fc23fe3d3617f8c596999a47bd02070b027c9",
         "poster": "assets/images/H018-poster.jpg",
         "bytes": 226695
-      },
-      {
-        "id": "R011",
-        "asset": "assets/hero/R011.mp4",
-        "source_sha256": "bd05a94192170c099e356c3f05a60fa55f7b57f858387f6d6c929eb872b264a0",
-        "web_sha256": "bdd99666d86e4f60245734cff5bd4c450fd249876022a9d39d1c396237c24211",
-        "poster": "assets/images/R011-poster.jpg",
-        "bytes": 119238
       },
       {
         "id": "X075",
