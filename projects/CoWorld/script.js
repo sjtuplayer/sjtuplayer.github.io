@@ -140,24 +140,21 @@ function makeCard(item, group, comparison = false) {
 }
 
 
-const heroVideos = document.querySelectorAll(".cinema-hero video");
+const mosaicVideos = [...document.querySelectorAll(".hero-mosaic video")];
 const motionButton = document.querySelector("#hero-motion");
 if (reducedMotion) {
   sectionPaused.add("hero-mosaic");
   motionButton.textContent = "▷ Play motion";
   motionButton.setAttribute("aria-pressed", "true");
 }
-heroVideos.forEach(watchVideo);
-document.querySelectorAll("[data-featured-case]").forEach(button => {
-  button.addEventListener("click", () => openViewer(byKey.get(button.dataset.featuredCase)));
-});
+mosaicVideos.forEach(watchVideo);
 motionButton.addEventListener("click", () => {
   const paused = !sectionPaused.has("hero-mosaic");
   if (paused) sectionPaused.add("hero-mosaic");
   else sectionPaused.delete("hero-mosaic");
   motionButton.textContent = paused ? "▷ Play motion" : "Ⅱ Pause motion";
   motionButton.setAttribute("aria-pressed", String(paused));
-  heroVideos.forEach(video => {
+  mosaicVideos.forEach(video => {
     if (paused) pauseAutomatically(video);
     else if (videoStates.get(video).visible) {
       ensureSource(video);

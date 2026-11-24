@@ -3754,7 +3754,7 @@
     }
   ],
   "hero_presentation": {
-    "purpose": "Lightweight title mosaic and featured paired videos",
+    "purpose": "Lightweight title mosaic",
     "encoding": "720-pixel-wide H.264, 15 fps, CRF 27, silent",
     "assets": [
       {
